@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "839877112202",
+    "project_id": "swync-eed37",
+    "storage_bucket": "swync-eed37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839877112202:android:1ecd80ae1007748e201873",
+        "android_client_info": {
+          "package_name": "com.example.test_drive"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNh1uiKLgtgJZlT6QNKts681G0T427ZAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
