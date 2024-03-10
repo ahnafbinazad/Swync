@@ -72,7 +72,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     );
                   } catch (error) {
                     print("Error ${error.toString()}");
-                    // Show error message to the user
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(error.toString()),

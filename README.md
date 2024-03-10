@@ -2,7 +2,7 @@
 
 ## Overview
 
-Welcome to the Social Fitness Tracking App! This project is currently in development and serves as the final year project for [Your Name]. The app aims to revolutionize the way individuals engage with fitness by providing a comprehensive platform for tracking workouts, fostering social connections, and promoting healthy lifestyle habits.
+Welcome to Swync, the social fitness tracking app! This project is currently in development and serves as the final year project for my Bachelor's degree in Computer Science. The app aims to revolutionize the way individuals engage with fitness by providing a comprehensive platform for tracking workouts, fostering social connections, and promoting healthy lifestyle habits.
 
 ## Features (Work in Progress)
 
@@ -15,4 +15,4 @@ Welcome to the Social Fitness Tracking App! This project is currently in develop
 
 ## Installation
 
-The Social Fitness Tracking App is currently in development and not yet available for public use. Stay tuned for updates on the release date and instructions for installation.
+Swync is currently in development and not yet available for public use. Stay tuned for updates on the release date and instructions for installation.
