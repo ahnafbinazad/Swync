@@ -45,7 +45,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 height: 20
                 ),
 
-              reusableTextField("Enter UserName", Icons.person_outline, false,
+              reusableTextField("Enter User Name", Icons.person_outline, false,
                   _emailTextController),
 
               const SizedBox(
