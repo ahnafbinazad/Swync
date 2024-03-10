@@ -1,4 +1,4 @@
-# Social Fitness Tracking App
+# Swync - Social fitness tracking app
 
 ## Overview
 
