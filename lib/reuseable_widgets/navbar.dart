@@ -21,6 +21,8 @@ class CustomNavBar extends StatelessWidget {
 
   CustomNavBar({required this.isSelectedIndex}); // Constructor to receive isSelectedIndex
 
+  final int transitionDuration = 200;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,21 +56,48 @@ class CustomNavBar extends StatelessWidget {
                   print("pressed profile nav");
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfileScreen()),
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) => ProfileScreen(),
+                      transitionDuration: Duration(milliseconds: transitionDuration), // Adjust the duration here
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        );
+                      },
+                    ),
                   );
                   break;
                 case 1:
-                print("pressed home nav");
+                  print("pressed home nav");
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) => HomeScreen(),
+                      transitionDuration: Duration(milliseconds: transitionDuration), // Adjust the duration here
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        );
+                      },
+                    ),
                   );
                   break;
                 case 2:
                   print("pressed ranks nav");
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => RanksScreen()),
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) => RanksScreen(),
+                      transitionDuration: Duration(milliseconds: transitionDuration), // Adjust the duration here
+                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        );
+                      },
+                    ),
                   );
                   break;
                 default:
