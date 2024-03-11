@@ -1,6 +1,5 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
-
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
 import 'package:test_drive/utils/colour_utils.dart';
 
@@ -23,12 +22,28 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
         child: Center(
-          child: Text(
-            'Profile Screen',
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.white
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Profile Screen',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.black,
+                ),
               ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.redAccent),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                ),
+                child: Text('Logout'),
+              ),
+            ],
           ),
         ),
       ),

@@ -1,9 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
-import 'package:test_drive/screens/login.dart';
 import 'package:test_drive/utils/colour_utils.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -47,22 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     for (int i = 0; i < 6; i++) MyCard(),
                   ],
-                ),
-                // logout button
-                SizedBox(
-                  width: 80, // Allow the width to be determined dynamically
-                  child: ElevatedButton(
-                    onPressed: () {
-                      FirebaseAuth.instance.signOut().then((value) {
-                        print("Signed user out.");
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => LogInScreen()),
-                        );
-                      });
-                    },
-                    child: Text('Logout'),
-                  ),
                 ),
                 SizedBox(height: 80), // Adjust spacing for navbar
               ],

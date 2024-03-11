@@ -25,7 +25,7 @@ class RanksScreen extends StatelessWidget {
         child: Center(
           child: Text(
             'Ranks Screen',
-            style: TextStyle(fontSize: 24, color: Colors.white),
+            style: TextStyle(fontSize: 24, color: Colors.black),
           ),
         ),
       ),
