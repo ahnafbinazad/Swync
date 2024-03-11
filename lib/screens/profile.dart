@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
+import 'package:test_drive/screens/login.dart';
 import 'package:test_drive/utils/colour_utils.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -36,6 +37,10 @@ class ProfileScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LogInScreen()),
+                  );
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.redAccent),

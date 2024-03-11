@@ -43,7 +43,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             padding: EdgeInsets.fromLTRB(20, MediaQuery.of(context).size.height * 0.1, 20, 0),
             child: Column(
               children: <Widget>[
-                logoWidget("/Users/ahnafazad/Downloads/logo.png"),
+                logoWidget("assets/images/logo.png"),
                 reusableTextField("Enter User Name", Icons.person_outline, false,
                     _userNameTextController),
                 const SizedBox(
