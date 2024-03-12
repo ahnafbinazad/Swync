@@ -1,6 +1,6 @@
-// ignore_for_file: prefer_final_fields, use_super_parameters, library_private_types_in_public_api, prefer_const_constructors
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:test_drive/database/db_service.dart';
 import 'package:test_drive/reuseable_widgets/reuseable_widgets.dart';
 import 'package:test_drive/screens/home.dart';
 import 'package:test_drive/utils/colour_utils.dart';
@@ -17,6 +17,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _userNameTextController = TextEditingController();
+
+  final _dbService = DbService(FirebaseFirestore.instance, FirebaseAuth.instance);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,42 +33,68 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
       body: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-          hexStringToColour("#f89302"),
-          hexStringToColour("#eeee02"),
-          hexStringToColour("#fef2e0")
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-          child: SingleChildScrollView(
-              child: Padding(
-            padding: EdgeInsets.fromLTRB(20, MediaQuery.of(context).size.height * 0.1, 20, 0),
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              hexStringToColour("#f89302"),
+              hexStringToColour("#eeee02"),
+              hexStringToColour("#fef2e0")
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(
+              20,
+              MediaQuery.of(context).size.height * 0.1,
+              20,
+              0,
+            ),
             child: Column(
               children: <Widget>[
                 logoWidget("assets/images/logo.png"),
-                reusableTextField("Enter User Name", Icons.person_outline, false,
-                    _userNameTextController),
-                const SizedBox(
-                  height: 20,
+                reusableTextField(
+                  "Enter User Name",
+                  Icons.person_outline,
+                  false,
+                  _userNameTextController,
                 ),
-                reusableTextField("Enter Email", Icons.email_outlined, false,
-                    _emailTextController),
-                const SizedBox(
-                  height: 20,
+                const SizedBox(height: 20),
+                reusableTextField(
+                  "Enter Email",
+                  Icons.email_outlined,
+                  false,
+                  _emailTextController,
                 ),
-                reusableTextField("Enter Password", Icons.lock_outlined, true,
-                    _passwordTextController),
-                const SizedBox(
-                  height: 20,
+                const SizedBox(height: 20),
+                reusableTextField(
+                  "Enter Password",
+                  Icons.lock_outlined,
+                  true,
+                  _passwordTextController,
                 ),
+                const SizedBox(height: 20),
                 signInSignUpButton(context, false, () async {
                   try {
+                    
+                    print("starting user auth");
+                    // Create user with Firebase Auth after saving details
                     await FirebaseAuth.instance.createUserWithEmailAndPassword(
                       email: _emailTextController.text,
                       password: _passwordTextController.text,
                     );
-                    print("Created new user");
+                    print("Created user auth");
+
+                    print("starting user adding");
+                    // Save user details to Firestore
+                    await _dbService.saveUser();
+
+                    print("Saved user details to Firestore");
+
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => HomeScreen()),
@@ -75,15 +104,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(error.toString()),
-                        duration: Duration(seconds: 3), 
+                        duration: Duration(seconds: 3),
                       ),
                     );
                   }
-                })
+                }),
               ],
             ),
-          ))),
+          ),
+        ),
+      ),
     );
   }
-  // hexStringToColor(String s) {}
 }
