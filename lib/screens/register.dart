@@ -91,7 +91,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                     print("starting user adding");
                     // Save user details to Firestore
-                    await _dbService.saveUser();
+                    await _dbService.saveUser(email: _emailTextController.text, username: _userNameTextController.text);
 
                     print("Saved user details to Firestore");
 

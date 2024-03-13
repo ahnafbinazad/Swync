@@ -33,33 +33,23 @@ class DbService extends ChangeNotifier {
     return appUser;
   }
 
-  Future<void> updateUserMetrics(
-      int height, int weight, DateTime dob, String gender) async {
-    var fUser = _fbAuth.currentUser;
-    if (fUser == null) {
-      return;
-    }
 
-    await _db.collection("users").doc(fUser.uid).update({
-      "height": height,
-      "weight": weight,
-      "dob": dob,
-      "gender": gender,
-      "onboarded": true,
-    });
+// TODO: change this to save all user data in the firestore at once
+// On workout added, etc - set the daat to change 
 
-    syncAppUser();
-  }
-
-  Future<void> saveUser() async {
+  Future<void> saveUser({email, username}) async {
     var fUser = _fbAuth.currentUser;
 
     if (fUser == null) {
+      print('returning cause fUser is null');
       return;
     }
+    print('uid' + fUser.uid);
 
-    await _db.collection("activities").doc().set({
-      "userId": fUser.uid,
+    await _db.collection("users").doc(fUser.uid).set({
+      "userId" : fUser.uid,
+      "email" : email,
+      "username" : username,
     });
 
   }
