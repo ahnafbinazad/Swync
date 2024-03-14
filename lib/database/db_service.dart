@@ -1,8 +1,6 @@
-import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 
 class DbService extends ChangeNotifier {
   final FirebaseFirestore _db;
@@ -33,11 +31,7 @@ class DbService extends ChangeNotifier {
     return appUser;
   }
 
-
-// TODO: change this to save all user data in the firestore at once
-// On workout added, etc - set the daat to change 
-
-  Future<void> saveUser({email, username}) async {
+  Future<void> addNewUser({email, username}) async {
     var fUser = _fbAuth.currentUser;
 
     if (fUser == null) {
@@ -50,7 +44,25 @@ class DbService extends ChangeNotifier {
       "userId" : fUser.uid,
       "email" : email,
       "username" : username,
+      "streak" : 0,
+      "monthlyWorkoutTime" : 0,
+      "totalWorkoutTime" : 0,
+      "totalStreaks" : 0,
+      "streakRank" : 0,
+      "workoutRank" : 0,
+      "league" : 0,
+      "bestStreak" : 0,
+      "bestRank" : {},
+      "friends" : [],
     });
+  }
 
+  Future<bool> isUsernameAvailable(String username) async {
+    final querySnapshot = await _db
+        .collection('users')
+        .where('username', isEqualTo: username)
+        .get();
+
+    return querySnapshot.docs.isEmpty;
   }
 }

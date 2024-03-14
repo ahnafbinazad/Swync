@@ -20,6 +20,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final _dbService = DbService(FirebaseFirestore.instance, FirebaseAuth.instance);
 
+  bool _isUsernameAvailable = true;
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,42 +81,93 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   _passwordTextController,
                 ),
                 const SizedBox(height: 20),
-                signInSignUpButton(context, false, () async {
-                  try {
-                    
-                    print("starting user auth");
-                    // Create user with Firebase Auth after saving details
-                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: _emailTextController.text,
-                      password: _passwordTextController.text,
-                    );
-                    print("Created user auth");
-
-                    print("starting user adding");
-                    // Save user details to Firestore
-                    await _dbService.saveUser(email: _emailTextController.text, username: _userNameTextController.text);
-
-                    print("Saved user details to Firestore");
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    );
-                  } catch (error) {
-                    print("Error ${error.toString()}");
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(error.toString()),
-                        duration: Duration(seconds: 3),
-                      ),
-                    );
-                  }
-                }),
+                _isLoading
+                    ? CircularProgressIndicator()
+                    : signInSignUpButton(context, false, _attemptSignUp),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _attemptSignUp() async {
+    final username = _userNameTextController.text.trim();
+    final email = _emailTextController.text.trim();
+    final password = _passwordTextController.text;
+
+    if (username.isEmpty || email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Please fill in all fields."),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      if (!_isUsernameAvailable) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Username is already taken. Please choose a different one."),
+            duration: Duration(seconds: 3),
+          ),
+        );
+        return;
+      }
+
+      // Create user with Firebase Auth after saving details
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Save user details to Firestore
+      await _dbService.addNewUser(email: email, username: username);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error: ${error.toString()}"),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _userNameTextController.dispose();
+    _emailTextController.dispose();
+    _passwordTextController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _userNameTextController.addListener(_checkUsernameAvailability);
+  }
+
+  Future<void> _checkUsernameAvailability() async {
+    final username = _userNameTextController.text.trim();
+    final isAvailable = await _dbService.isUsernameAvailable(username);
+    setState(() {
+      _isUsernameAvailable = isAvailable;
+    });
   }
 }
