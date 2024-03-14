@@ -47,7 +47,7 @@ class DbService extends ChangeNotifier {
       "streak" : 0,
       "monthlyWorkoutTime" : 0,
       "totalWorkoutTime" : 0,
-      "totalStreaks" : 0,
+      "totalWorkoutDays" : 0,
       "streakRank" : 0,
       "workoutRank" : 0,
       "league" : 0,
