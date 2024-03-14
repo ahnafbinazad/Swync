@@ -55,6 +55,17 @@ class DbService extends ChangeNotifier {
       "bestRank" : {},
       "friends" : [],
     });
+
+  await _db.collection("leaderBoard").doc(fUser.uid).set({
+      "userId" : fUser.uid,
+      "username" : username,
+      "streak" : 0,
+      "monthlyWorkoutTime" : 0,
+      "streakRank" : 0,
+      "workoutRank" : 0,
+      "league" : 0,
+    });
+
   }
 
   Future<bool> isUsernameAvailable(String username) async {
