@@ -8,29 +8,38 @@ class RanksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              hexStringToColour("#f89302"),
-              hexStringToColour("#eeee02"),
-              hexStringToColour("#fef2e0")
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+      body: Stack(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  hexStringToColour("#f89302"),
+                  hexStringToColour("#eeee02"),
+                  hexStringToColour("#fef2e0")
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                'Ranks Screen',
+                style: TextStyle(fontSize: 24, color: Colors.black),
+              ),
+            ),
           ),
-        ),
-        child: Center(
-          child: Text(
-            'Ranks Screen',
-            style: TextStyle(fontSize: 24, color: Colors.black),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: CustomNavBar(
+              isSelectedIndex: 2, // Set the selected index to 2 for the RanksScreen
+            ),
           ),
-        ),
-      ),
-      bottomNavigationBar: CustomNavBar(
-        isSelectedIndex: 2, // Set the selected index to 2 for the RanksScreen
+        ],
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:test_drive/firebase_options.dart';
 import 'package:test_drive/screens/home.dart'; // Import your HomeScreen widget
 import 'package:test_drive/screens/login.dart';
+import 'package:test_drive/screens/profile.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,9 @@ class MyApp extends StatelessWidget {
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
               useMaterial3: true,
             ),
-            home: snapshot.data == null ? LogInScreen() : HomeScreen(),
+            // set the second screen to whatever is being tested cause otherwise on every hot reload it goes to the homescreen.
+            //once testing is done, set to LogInScreen() : HomeScreen()
+            home: snapshot.data == null ? LogInScreen() : ProfileScreen(),
           );
         }
       },
