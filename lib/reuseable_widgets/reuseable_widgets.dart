@@ -66,3 +66,52 @@ Container signInSignUpButton(
       ),
     );
   }
+
+class StatCard extends StatelessWidget {
+  final String description;
+  final IconData iconData;
+  final dynamic value;
+
+  const StatCard({
+    required this.description,
+    required this.iconData,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              description,
+              style: const TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10.0),
+            Row(
+              children: [
+                Icon(
+                  iconData,
+                  color: Colors.orange, // Change the color as needed
+                ),
+                const SizedBox(width: 10.0),
+                Text(
+                  '$value',
+                  style: const TextStyle(fontSize: 16.0),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
