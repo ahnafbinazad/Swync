@@ -56,8 +56,9 @@ class ProfileScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // SizedBox(height: 20),
-                    //TODO: add the hi username thing
+                    
+                    SizedBox(height: 20),
+
                     Center(
                       child: Text(
                         testUser.username,
@@ -85,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
                     // Display user data using StatCard
                     StatCard(
                       description: 'Current Streak',
-                      imagePath: 'assets/images/streak.png', // Provide the file path
+                      imagePath: 'assets/images/streak.png',
                       value: testUser.streak,
                     ),
                     StatCard(
@@ -111,27 +112,33 @@ class ProfileScreen extends StatelessWidget {
 
                     bestRecordCard(context, testUser.bestStreak, testUser.bestRank),
 
-                    // TODO: make a different card called best record with the best values in it
+                    SizedBox(height: 10), // Adjust spacing before the logout button
 
-                    // TODO: add cards according to the UI 
-                    SizedBox(height: 20), // Adjust spacing before the logout button
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          FirebaseAuth.instance.signOut();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => LogInScreen()),
-                          );
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.redAccent),
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                        ),
-                        child: Text('Logout'),
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0), // Adjust the horizontal padding as needed
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              FirebaseAuth.instance.signOut();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => LogInScreen()),
+                              );
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent),
+                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                            ),
+                            child: Text('Logout'),
+                          ),
+                        ],
                       ),
                     ),
+
+
+
                     SizedBox( height: 100,)
                   ],
                 ),

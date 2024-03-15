@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
+import 'package:test_drive/reuseable_widgets/reuseable_widgets.dart';
 import 'package:test_drive/utils/colour_utils.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -43,10 +44,104 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    for (int i = 0; i < 6; i++) MyCard(),
+                    SizedBox(height: 50,),
+
+                    Center(
+                      child: Text(
+                        "Hello,",
+                        style: TextStyle(
+                          fontSize: 26,
+                          color: Colors.black, 
+                          fontWeight: FontWeight.bold
+                          ),
+                      ),
+                    ),
+
+                    Center(
+                      child: Text(
+                        // set to username from db
+                        'ahnafazad',
+                        style: TextStyle(
+                          fontSize: 30, 
+                          color: Colors.black, 
+                          fontWeight: FontWeight.bold
+                          ),
+                      ),
+                    ),
+
+                    Divider(
+                      thickness: 1, 
+                      color: Colors.black87.withOpacity(0.4),
+                    ),
+
+                    SizedBox(height: 10,),
+
+                    // set time accordingly
+                    Center(
+                      child: Text(
+                        'You Have\nTIME\nTo Maintain Your Streak',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 26, 
+                          color: Colors.black, 
+                          fontWeight: FontWeight.bold
+                          ),
+                      ),
+                    ),
+                    
+                    SizedBox(height: 10,),
+
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20), // Adjust the horizontal padding as needed
+                      child: GestureDetector(
+                        onTap: () {
+                          print("record workout button pressed");
+                          // This is where you would add the functionality to record workouts
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.5, // Adjust the width of the button as needed
+                          height: 50, // Adjust the height of the button as needed
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Record Workout',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+
+
+                    SizedBox(height: 10),
+
+                    // Display user data using StatCard
+                    StatCard(
+                      description: 'Current Streak',
+                      imagePath: 'assets/images/streak.png',
+                      value: 30,
+                    ),
+                    StatCard(
+                      description: 'Workout League Rank',
+                      imagePath: 'assets/images/trophy1.png',
+                      value: 30,
+                    ),
+                    StatCard(
+                      description: 'Streak League Rank',
+                      imagePath: 'assets/images/trophy1.png',
+                      value: 30,
+                    ),
                   ],
                 ),
-                SizedBox(height: 80), // Adjust spacing for navbar
+                SizedBox(height: 80), 
               ],
             ),
           ),

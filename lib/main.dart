@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:test_drive/firebase_options.dart';
+import 'package:test_drive/screens/home.dart';
 import 'package:test_drive/screens/login.dart';
 import 'package:test_drive/screens/profile.dart';
 
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
             ),
             // set the second screen to whatever is being tested cause otherwise on every hot reload it goes to the homescreen.
-            //once testing is done, set to LogInScreen() : HomeScreen()
+            //for testing, second screen can be set to HomeScreen(), ProfileScreen(), or RanksScreen()
             home: snapshot.data == null ? LogInScreen() : ProfileScreen(),
           );
         }
