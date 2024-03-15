@@ -7,13 +7,14 @@ import 'package:test_drive/reuseable_widgets/navbar.dart';
 import 'package:test_drive/reuseable_widgets/reuseable_widgets.dart';
 import 'package:test_drive/screens/login.dart';
 import 'package:test_drive/utils/colour_utils.dart';
+import 'package:test_drive/utils/time_formatter.dart';
 
 class ProfileScreen extends StatelessWidget {
   final UserModel testUser = UserModel(
     userId: 'user123',
     email: 'example@example.com',
     username: 'example_user',
-    totalWorkoutTime: 100,
+    totalWorkoutTime: 10000,
     totalWorkoutDays: 20,
     bestStreak: 10,
     bestRank: {'silver': '1st'},
@@ -133,21 +134,4 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-
-  String formatTotalWorkoutTime(int totalMinutes) {
-  int days = totalMinutes ~/ (60 * 24);
-  int hours = (totalMinutes ~/ 60) % 24;
-  int minutes = totalMinutes % 60;
-  
-  String formattedTime = '';
-  if (days > 0) {
-    formattedTime += '$days' 'd';
-  }
-  if (hours > 0) {
-    formattedTime += '$hours' 'h, ';
-  }
-  formattedTime += '$minutes' 'm';
-
-  return formattedTime;
-}
 }
