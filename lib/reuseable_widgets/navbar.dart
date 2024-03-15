@@ -3,11 +3,10 @@ import 'package:test_drive/screens/home.dart';
 import 'package:test_drive/screens/profile.dart';
 import 'package:test_drive/screens/ranks.dart';
 
-
-List<IconData> navIcons = [
-  Icons.person,
-  Icons.home,
-  Icons.leaderboard
+List<String> navIcons = [
+  "assets/images/woman.png",
+  "assets/images/home.png",
+  "assets/images/top.png"
 ];
 
 List<String> navTitles = [
@@ -104,15 +103,18 @@ class CustomNavBar extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
+                Image.asset(
                   navIcons[index],
-                  color: isSelected ? Colors.black : Colors.grey,
+                  // color: isSelected ? Colors.black : Colors.grey,
+                  width: 30, // Adjust the width as needed
+                  height: 30, // Adjust the height as needed
                 ),
-                SizedBox(height: 4),
+                SizedBox(height: 2),
                 Text(
                   navTitles[index],
                   style: TextStyle(
                     color: isSelected ? Colors.black : Colors.grey,
+                    fontWeight: FontWeight.bold
                   ),
                 ),
               ],
