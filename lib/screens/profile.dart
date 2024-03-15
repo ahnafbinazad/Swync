@@ -106,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     StatCard(
                       description: 'Days Worked Out',
-                      imagePath: 'assets/images/calendar-3.png',
+                      imagePath: 'assets/images/event.png',
                       value: testUser.totalWorkoutDays,
                     ),
 

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:test_drive/screens/home.dart';
 import 'package:test_drive/screens/profile.dart';
@@ -6,7 +8,7 @@ import 'package:test_drive/screens/ranks.dart';
 List<String> navIcons = [
   "assets/images/woman.png",
   "assets/images/home.png",
-  "assets/images/top.png"
+  "assets/images/ranking.png"
 ];
 
 List<String> navTitles = [
@@ -36,9 +38,10 @@ class CustomNavBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(20),
-            blurRadius: 20,
-            spreadRadius: 10,
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 5,
+            spreadRadius: 2,
+            offset: Offset(0, 2),
           ),
         ],
       ),
@@ -103,18 +106,24 @@ class CustomNavBar extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  navIcons[index],
-                  // color: isSelected ? Colors.black : Colors.grey,
-                  width: 30, // Adjust the width as needed
-                  height: 30, // Adjust the height as needed
-                ),
-                SizedBox(height: 2),
-                Text(
-                  navTitles[index],
-                  style: TextStyle(
-                    color: isSelected ? Colors.black : Colors.grey,
-                    fontWeight: FontWeight.bold
+                Container(
+                  padding: EdgeInsets.only(bottom: isSelected ? 10 : 0), // Add padding at the bottom when selected
+                  decoration: BoxDecoration(
+                    boxShadow: isSelected
+                        ? [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              blurRadius: 15, // Adjust the blur radius to change the height of the shadow
+                              spreadRadius: 1, // Adjust the spread radius to change the width of the shadow
+                              offset: Offset(0, 5), // Adjust the offset to place the shadow under the icon
+                            ),
+                          ]
+                        : null,
+                  ),
+                  child: Image.asset(
+                    navIcons[index],
+                    width: 40, // Adjust the width as needed
+                    height: 40, // Adjust the height as needed
                   ),
                 ),
               ],
