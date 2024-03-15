@@ -79,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                       value: testUser.workoutRank,
                     ),
                     StatCard(
-                      description: 'Streak Rank',
+                      description: 'Streak League Rank',
                       iconData: Icons.person,
                       value: testUser.streakRank,
                     ),
@@ -94,7 +94,6 @@ class ProfileScreen extends StatelessWidget {
                       value: testUser.totalWorkoutDays,
                     ),
 
-                    // Display best records
                     bestRecordCard(context, testUser.bestStreak, testUser.bestRank),
 
                     // TODO: make a different card called best record with the best values in it

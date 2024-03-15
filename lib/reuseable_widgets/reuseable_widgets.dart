@@ -161,7 +161,7 @@ class BestRecordsWidget extends StatelessWidget {
         ),
         SizedBox(height: 10),
         Text(
-          'Best Rank Achieved',
+          'Best Workout Rank Achieved',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         Text(
