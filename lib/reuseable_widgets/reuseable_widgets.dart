@@ -68,16 +68,17 @@ Container signInSignUpButton(
       ),
     );
   }
+  
 
 class StatCard extends StatelessWidget {
   final String description;
-  final IconData iconData;
   final dynamic value;
+  final String? imagePath;
 
   const StatCard({
     required this.description,
-    required this.iconData,
     required this.value,
+    this.imagePath,
   });
 
   @override
@@ -92,7 +93,7 @@ class StatCard extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 1,
             blurRadius: 5,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3), // changes position of shadow
           ),
         ],
       ),
@@ -111,14 +112,22 @@ class StatCard extends StatelessWidget {
             const SizedBox(height: 10.0),
             Row(
               children: [
-                Icon(
-                  iconData,
-                  color: Colors.orange, // Change the color as needed
-                ),
+                imagePath != null
+                    ? Image.asset(
+                        imagePath!,
+                        fit: BoxFit.fitWidth,
+                        width: 40,
+                        height: 40,
+                      )
+                    : Icon(
+                        Icons.person,
+                        color: Colors.orange, // Change the color as needed
+                        size: 40,
+                      ),
                 const SizedBox(width: 10.0),
                 Text(
                   '$value',
-                  style: const TextStyle(fontSize: 20.0),
+                  style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -128,6 +137,7 @@ class StatCard extends StatelessWidget {
     );
   }
 }
+
 
 
 
@@ -153,20 +163,20 @@ class BestRecordsWidget extends StatelessWidget {
         SizedBox(height: 10),
         Text(
           'Longest Streak',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         Text(
           '$bestStreak',
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 10),
         Text(
           'Best Workout Rank Achieved',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
         Text(
-          '${bestRank.isNotEmpty ? bestRank.values.first : "N/A"}', // Showing "N/A" if the data is empty
-          style: TextStyle(fontSize: 16),
+          '${bestRank.isNotEmpty ? bestRank.values.first : "N/A"}',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ],
     );

@@ -13,7 +13,7 @@ class ProfileScreen extends StatelessWidget {
   final UserModel testUser = UserModel(
     userId: 'user123',
     email: 'example@example.com',
-    username: 'example_user',
+    username: 'ahnafazad',
     totalWorkoutTime: 10000,
     totalWorkoutDays: 20,
     bestStreak: 10,
@@ -60,8 +60,23 @@ class ProfileScreen extends StatelessWidget {
                     //TODO: add the hi username thing
                     Center(
                       child: Text(
-                        'Hi, ${testUser.username}',
-                        style: TextStyle(fontSize: 24, color: Colors.black),
+                        testUser.username,
+                        style: TextStyle(
+                          fontSize: 30,
+                          color: Colors.black, 
+                          fontWeight: FontWeight.bold
+                          ),
+                      ),
+                    ),
+
+                    Center(
+                      child: Text(
+                        'Performance Metrics',
+                        style: TextStyle(
+                          fontSize: 26, 
+                          color: Colors.black, 
+                          fontWeight: FontWeight.bold
+                          ),
                       ),
                     ),
 
@@ -70,27 +85,27 @@ class ProfileScreen extends StatelessWidget {
                     // Display user data using StatCard
                     StatCard(
                       description: 'Current Streak',
-                      iconData: Icons.person,
+                      imagePath: 'assets/images/streak.png', // Provide the file path
                       value: testUser.streak,
                     ),
                     StatCard(
                       description: 'Workout League Rank',
-                      iconData: Icons.person,
+                      imagePath: 'assets/images/trophy1.png',
                       value: testUser.workoutRank,
                     ),
                     StatCard(
                       description: 'Streak League Rank',
-                      iconData: Icons.person,
+                      imagePath: 'assets/images/trophy1.png',
                       value: testUser.streakRank,
                     ),
                     StatCard(
                       description: 'Time Worked Out',
-                      iconData: Icons.person,
+                      imagePath: 'assets/images/stopwatch.png',
                       value: formatTotalWorkoutTime(testUser.totalWorkoutTime),
                     ),
                     StatCard(
                       description: 'Days Worked Out',
-                      iconData: Icons.person,
+                      imagePath: 'assets/images/calendar.png',
                       value: testUser.totalWorkoutDays,
                     ),
 
