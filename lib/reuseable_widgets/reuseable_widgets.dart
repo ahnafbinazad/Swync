@@ -118,7 +118,7 @@ class StatCard extends StatelessWidget {
                 const SizedBox(width: 10.0),
                 Text(
                   '$value',
-                  style: const TextStyle(fontSize: 16.0),
+                  style: const TextStyle(fontSize: 20.0),
                 ),
               ],
             ),

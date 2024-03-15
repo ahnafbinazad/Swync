@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:test_drive/model/user_model.dart';
@@ -73,7 +75,7 @@ class ProfileScreen extends StatelessWidget {
                     StatCard(
                       description: 'Workout League Rank',
                       iconData: Icons.person,
-                      value: testUser.username,
+                      value: testUser.workoutRank,
                     ),
                     StatCard(
                       description: 'Streak Rank',
@@ -81,19 +83,14 @@ class ProfileScreen extends StatelessWidget {
                       value: testUser.streakRank,
                     ),
                     StatCard(
-                      description: 'League Rank',
+                      description: 'Time Worked Out',
                       iconData: Icons.person,
-                      value: testUser.username,
+                      value: formatTotalWorkoutTime(testUser.totalWorkoutTime),
                     ),
                     StatCard(
-                      description: 'Total time worked out',
+                      description: 'Days Worked Out',
                       iconData: Icons.person,
-                      value: testUser.username,
-                    ),
-                    StatCard(
-                      description: 'Days worked out',
-                      iconData: Icons.person,
-                      value: testUser.username,
+                      value: testUser.totalWorkoutDays,
                     ),
 
                     // Display best records
@@ -136,4 +133,21 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
+
+  String formatTotalWorkoutTime(int totalMinutes) {
+  int days = totalMinutes ~/ (60 * 24);
+  int hours = (totalMinutes ~/ 60) % 24;
+  int minutes = totalMinutes % 60;
+  
+  String formattedTime = '';
+  if (days > 0) {
+    formattedTime += '$days' 'd';
+  }
+  if (hours > 0) {
+    formattedTime += '$hours' 'h, ';
+  }
+  formattedTime += '$minutes' 'm';
+
+  return formattedTime;
+}
 }
