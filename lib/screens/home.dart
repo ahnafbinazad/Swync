@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     // set time accordingly
                     Center(
                       child: Text(
-                        'You Have\nTIME\nTo Maintain Your Streak',
+                        'You Have\nTIME\nTo Keep Your Streak',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 26, 
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(height: 10,),
 
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20), // Adjust the horizontal padding as needed
+                      padding: EdgeInsets.symmetric(horizontal: 55), // Adjust the horizontal padding as needed
                       child: GestureDetector(
                         onTap: () {
                           print("record workout button pressed");
@@ -100,16 +100,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width * 0.5, // Adjust the width of the button as needed
-                          height: 50, // Adjust the height of the button as needed
+                          height: 70, // Adjust the height of the button as needed
                           decoration: BoxDecoration(
                             color: Colors.red,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(30),
                           ),
                           child: Center(
                             child: Text(
                               'Record Workout',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 22,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -131,12 +131,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     StatCard(
                       description: 'Workout League Rank',
-                      imagePath: 'assets/images/trophy1.png',
+                      imagePath: 'assets/images/trophy-icon.png',
                       value: 30,
                     ),
                     StatCard(
                       description: 'Streak League Rank',
-                      imagePath: 'assets/images/trophy1.png',
+                      imagePath: 'assets/images/award.png',
                       value: 30,
                     ),
                   ],

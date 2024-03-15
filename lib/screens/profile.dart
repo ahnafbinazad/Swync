@@ -56,7 +56,7 @@ class ProfileScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    
+
                     SizedBox(height: 20),
 
                     Center(
@@ -91,22 +91,22 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     StatCard(
                       description: 'Workout League Rank',
-                      imagePath: 'assets/images/trophy1.png',
+                      imagePath: 'assets/images/trophy-icon.png',
                       value: testUser.workoutRank,
                     ),
                     StatCard(
                       description: 'Streak League Rank',
-                      imagePath: 'assets/images/trophy1.png',
+                      imagePath: 'assets/images/award.png',
                       value: testUser.streakRank,
                     ),
                     StatCard(
                       description: 'Time Worked Out',
-                      imagePath: 'assets/images/stopwatch.png',
+                      imagePath: 'assets/images/coming-soon.png',
                       value: formatTotalWorkoutTime(testUser.totalWorkoutTime),
                     ),
                     StatCard(
                       description: 'Days Worked Out',
-                      imagePath: 'assets/images/calendar.png',
+                      imagePath: 'assets/images/calendar-3.png',
                       value: testUser.totalWorkoutDays,
                     ),
 
@@ -131,11 +131,18 @@ class ProfileScreen extends StatelessWidget {
                               backgroundColor: MaterialStateProperty.all<Color>(Colors.deepOrangeAccent),
                               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                             ),
-                            child: Text('Logout'),
+                            child: Text(
+                              'Logout',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold
+                              ),
+                            ),
                           ),
                         ],
                       ),
                     ),
+
 
 
 
