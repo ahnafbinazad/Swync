@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             ),
             // set the second screen to whatever is being tested cause otherwise on every hot reload it goes to the homescreen.
             //for testing, second screen can be set to HomeScreen(), ProfileScreen(), or RanksScreen()
-            home: snapshot.data == null ? LogInScreen() : ProfileScreen(),
+            home: snapshot.data == null ? LogInScreen() : HomeScreen(),
           );
         }
       },

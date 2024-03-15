@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           width: MediaQuery.of(context).size.width * 0.5, // Adjust the width of the button as needed
                           height: 70, // Adjust the height of the button as needed
                           decoration: BoxDecoration(
-                            color: Colors.red,
+                            color: Colors.deepOrangeAccent,
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: Center(
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               'Record Workout',
                               style: TextStyle(
                                 fontSize: 22,
-                                color: Colors.white,
+                                color: Colors.black87,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -118,8 +118,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-
-
 
                     SizedBox(height: 10),
 
