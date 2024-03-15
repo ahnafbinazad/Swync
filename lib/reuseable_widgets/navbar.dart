@@ -53,7 +53,6 @@ class CustomNavBar extends StatelessWidget {
               // Navigate to the corresponding screen based on the selected index
               switch(index) {
                 case 0:
-                  print("pressed profile nav");
                   Navigator.push(
                     context,
                     PageRouteBuilder(
@@ -69,7 +68,6 @@ class CustomNavBar extends StatelessWidget {
                   );
                   break;
                 case 1:
-                  print("pressed home nav");
                   Navigator.push(
                     context,
                     PageRouteBuilder(
@@ -85,7 +83,6 @@ class CustomNavBar extends StatelessWidget {
                   );
                   break;
                 case 2:
-                  print("pressed ranks nav");
                   Navigator.push(
                     context,
                     PageRouteBuilder(

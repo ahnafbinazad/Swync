@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations
+
 import 'package:flutter/material.dart';
 
 Image logoWidget(String imageName) {
@@ -51,17 +53,17 @@ Container signInSignUpButton(
         },
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains (MaterialState.pressed)) {
+            if (states.contains(MaterialState.pressed)) {
               return Colors.black26;
             }
             return Colors.white;
           }),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)))),
         child: Text(
           isLogin ? 'LOG IN' : 'SIGN UP',
           style: const TextStyle(
-            color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16),
+              color: Colors.black87, fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ),
     );
@@ -80,8 +82,20 @@ class StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
       margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -115,3 +129,68 @@ class StatCard extends StatelessWidget {
   }
 }
 
+
+
+class BestRecordsWidget extends StatelessWidget {
+  final int bestStreak;
+  final Map<String, String> bestRank;
+
+  const BestRecordsWidget({
+    Key? key,
+    required this.bestStreak,
+    required this.bestRank,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Best Records',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 10),
+        Text(
+          'Longest Streak',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          '$bestStreak',
+          style: TextStyle(fontSize: 16),
+        ),
+        SizedBox(height: 10),
+        Text(
+          'Best Rank Achieved',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          '${bestRank.isNotEmpty ? bestRank.values.first : "N/A"}', // Showing "N/A" if the data is empty
+          style: TextStyle(fontSize: 16),
+        ),
+      ],
+    );
+  }
+}
+
+Container bestRecordCard(BuildContext context, int bestStreak, Map<String, dynamic> bestRank) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(10.0),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          spreadRadius: 1,
+          blurRadius: 5,
+          offset: Offset(0, 3), // changes position of shadow
+        ),
+      ],
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: BestRecordsWidget(bestStreak: bestStreak, bestRank: bestRank.cast<String, String>()),
+    ),
+  );
+}

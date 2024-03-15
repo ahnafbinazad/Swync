@@ -42,7 +42,12 @@ class ProfileScreen extends StatelessWidget {
                 end: Alignment.bottomCenter,
               ),
             ),
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            padding: EdgeInsets.fromLTRB(
+              20,
+              MediaQuery.of(context).size.height * 0.01,
+              20,
+              0,
+            ),            
             child: ListView(
               children: [
                 Column(
@@ -50,6 +55,15 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     // SizedBox(height: 20),
                     //TODO: add the hi username thing
+                    Center(
+                      child: Text(
+                        'Hi, ${testUser.username}',
+                        style: TextStyle(fontSize: 24, color: Colors.black),
+                      ),
+                    ),
+
+                    SizedBox(height: 10),
+
                     // Display user data using StatCard
                     StatCard(
                       description: 'Current Streak',
@@ -81,7 +95,11 @@ class ProfileScreen extends StatelessWidget {
                       iconData: Icons.person,
                       value: testUser.username,
                     ),
-                    //TODO: make a different card called best record with the best values in it
+
+                    // Display best records
+                    bestRecordCard(context, testUser.bestStreak, testUser.bestRank),
+
+                    // TODO: make a different card called best record with the best values in it
 
                     // TODO: add cards according to the UI 
                     SizedBox(height: 20), // Adjust spacing before the logout button
