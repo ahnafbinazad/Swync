@@ -7,6 +7,8 @@ import 'package:test_drive/providers/user_provider.dart';
 import 'package:test_drive/screens/home.dart';
 import 'package:test_drive/screens/login.dart';
 import 'package:test_drive/screens/profile.dart';
+import 'package:test_drive/screens/ranks.dart';
+import 'package:test_drive/screens/register.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +42,8 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
                 useMaterial3: true,
               ),
-              home: LogInScreen(),
+              // home: LogInScreen(),
+              home: SignUpScreen(),
             );
           } else {
             // If user is authenticated, fetch user details and show the home screen
@@ -52,6 +55,8 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
               ),
               home: HomeScreen(),
+              // home: ProfileScreen(),
+              // home: RanksScreen(),
             );
           }
         }

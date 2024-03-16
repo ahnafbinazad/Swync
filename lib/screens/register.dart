@@ -1,8 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:test_drive/database/db_service.dart';
 import 'package:test_drive/reuseable_widgets/reuseable_widgets.dart';
 import 'package:test_drive/screens/home.dart';
+import 'package:test_drive/screens/login.dart';
 import 'package:test_drive/utils/colour_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -60,22 +63,30 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               children: <Widget>[
                 logoWidget("assets/images/logo.png"),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Text(
+                    "Username must be 6 to 8 characters long and should not contain spaces.",
+                    style: TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
+                ),
+                const SizedBox(height: 8),
                 reusableTextField(
-                  "Enter User Name",
+                  "User Name",
                   Icons.person_outline,
                   false,
                   _userNameTextController,
                 ),
                 const SizedBox(height: 20),
                 reusableTextField(
-                  "Enter Email",
+                  "Email",
                   Icons.email_outlined,
                   false,
                   _emailTextController,
                 ),
                 const SizedBox(height: 20),
                 reusableTextField(
-                  "Enter Password",
+                  "Password",
                   Icons.lock_outlined,
                   true,
                   _passwordTextController,
@@ -84,11 +95,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 _isLoading
                     ? CircularProgressIndicator()
                     : signInSignUpButton(context, false, _attemptSignUp),
+                // const SizedBox(height: 20),
+                logInOption(),
+                const SizedBox(height: 50),
+
+
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+    Row logInOption() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("Already have account?",
+            style: TextStyle(color: Colors.black)),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => LogInScreen()));
+          },
+          child: const Text(
+            " Log In",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ],
     );
   }
 
@@ -101,6 +137,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Please fill in all fields."),
+          duration: Duration(seconds: 1),
+        ),
+      );
+      return;
+    }
+
+    // Check username length and spaces
+    if (username.length < 6 || username.length > 8 || username.contains(' ')) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Username must be 6 to 8 characters long and should not contain spaces."),
           duration: Duration(seconds: 3),
         ),
       );
