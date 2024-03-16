@@ -54,17 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     SizedBox(height: 20,),
 
-                    // Center(
-                    //   child: Text(
-                    //     "Hello",
-                    //     style: TextStyle(
-                    //       fontSize: 26,
-                    //       color: Colors.black, 
-                    //       fontWeight: FontWeight.bold
-                    //     ),
-                    //   ),
-                    // ),
-
                     Center(
                       child: Text(
                         // Display username from user data
@@ -76,6 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
+
+                    SizedBox(height: 5),
 
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 60),
