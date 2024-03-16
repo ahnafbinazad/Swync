@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:test_drive/database/db_service.dart';
 import 'package:test_drive/firebase_options.dart';
+import 'package:test_drive/model/user_model.dart';
 import 'package:test_drive/screens/home.dart';
 import 'package:test_drive/screens/login.dart';
 import 'package:test_drive/screens/profile.dart';
@@ -12,6 +15,38 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   
   runApp(MyApp());
+
+  // Call getUserDetails and print its result
+  final user = await getUserDetails();
+  printUserDetails(user);
+}
+
+Future<UserModel> getUserDetails() async {
+  // Instantiate DbService
+  final dbService = DbService(FirebaseFirestore.instance, FirebaseAuth.instance);
+  
+  // Get user details
+  final user = await dbService.getUserDetails();
+  
+  return user;
+}
+
+void printUserDetails(UserModel user) {
+  print('User Details:');
+  print('------------');
+  print('User ID: ${user.userId}');
+  print('Email: ${user.email}');
+  print('Username: ${user.username}');
+  print('Total Workout Time: ${user.totalWorkoutTime}');
+  print('Total Workout Days: ${user.totalWorkoutDays}');
+  print('Best Streak: ${user.bestStreak}');
+  print('Best Rank: ${user.bestRank}');
+  print('Friends: ${user.friends}');
+  print('Streak: ${user.streak}');
+  print('Monthly Workout Time: ${user.monthlyWorkoutTime}');
+  print('Streak Rank: ${user.streakRank}');
+  print('Workout Rank: ${user.workoutRank}');
+  print('League: ${user.league}');
 }
 
 class MyApp extends StatelessWidget {

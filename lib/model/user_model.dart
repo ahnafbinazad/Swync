@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
   final String userId;
   final String email;
@@ -29,9 +31,11 @@ class UserModel {
     required this.league,
   });
 
-  factory UserModel.fromFirestore(Map<String, dynamic> data) {
+  factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
+    final data = document.data()!;
+
     return UserModel(
-      userId: data['userId'],
+      userId: document.id,
       email: data['email'],
       username: data['username'],
       totalWorkoutTime: data['totalWorkoutTime'],

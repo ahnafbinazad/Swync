@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:test_drive/model/user_model.dart';
 
 class DbService extends ChangeNotifier {
   final FirebaseFirestore _db;
@@ -49,6 +50,11 @@ class DbService extends ChangeNotifier {
       "bestStreak" : 0,
       "bestRank" : {},
       "friends" : [],
+      "streak" : 0,
+      "monthlyWorkoutTime" : 0,
+      "streakRank" : 0,
+      "workoutRank" : 0,
+      "league" : 0,
     });
 
   await _db.collection("leaderBoard").doc(fUser.uid).set({
@@ -70,5 +76,16 @@ class DbService extends ChangeNotifier {
         .get();
 
     return querySnapshot.docs.isEmpty;
+  }
+
+  Future<UserModel> getUserDetails() async {
+    var fUser = _fbAuth.currentUser;
+
+    final snapshot = await _db.collection("users").doc(fUser?.uid).get();
+    // final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
+    final userData = UserModel.fromSnapshot(snapshot); // Directly using the snapshot
+
+
+    return userData;
   }
 }
