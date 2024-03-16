@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_drive/main.dart';
 import 'package:test_drive/model/user_model.dart';
 import 'package:test_drive/providers/user_provider.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
@@ -75,9 +74,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.black,
                       ),
                     ),
-
-
-                    // SizedBox(height: 5,),
 
                     // Display user data if available
                     if (user != null) ...[

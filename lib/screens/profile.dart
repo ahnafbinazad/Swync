@@ -2,16 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart'; // Import Provider
-import 'package:test_drive/main.dart';
-import 'package:test_drive/model/user_model.dart';
+import 'package:provider/provider.dart'; 
 import 'package:test_drive/providers/user_provider.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
 import 'package:test_drive/reuseable_widgets/reuseable_widgets.dart';
 import 'package:test_drive/screens/login.dart';
 import 'package:test_drive/utils/colour_utils.dart';
 import 'package:test_drive/utils/time_formatter.dart';
-import 'package:test_drive/database/db_service.dart'; // Import DbService
 
 class ProfileScreen extends StatelessWidget {
   @override

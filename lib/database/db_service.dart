@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_drive/model/leaderboard_model.dart';
 import 'package:test_drive/model/user_model.dart';
 
 class DbService extends ChangeNotifier {
