@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_super_parameters
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -143,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ],
                 ),
-                SizedBox(height: 75), 
+                SizedBox(height: 100), 
               ],
             ),
           ),

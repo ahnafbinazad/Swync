@@ -35,7 +35,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             padding: EdgeInsets.fromLTRB(
               20,
-              MediaQuery.of(context).size.height * 0.01,
+              MediaQuery.of(context).size.height * 0.00,
               20,
               0,
             ),
@@ -122,7 +122,7 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 75),
+                    SizedBox(height: 100),
                   ],
                 ),
               ],

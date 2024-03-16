@@ -44,8 +44,8 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
                 useMaterial3: true,
               ),
-              // home: LogInScreen(),
-              home: SignUpScreen(),
+              home: LogInScreen(),
+              // home: SignUpScreen(),
             );
           } else {
             // If user is authenticated, fetch user details and show the home screen
