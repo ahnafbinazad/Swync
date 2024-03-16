@@ -18,7 +18,7 @@ class UserProvider extends ChangeNotifier {
     notifyListeners(); // Notify listeners that the user data has been updated
 
     // Listen for changes to user data in Firestore
-    final userDoc = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid);
+    final userDoc = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser?.uid);
     userDoc.snapshots().listen((snapshot) {
       if (snapshot.exists) {
         _user = UserModel.fromSnapshot(snapshot); // Update user data
