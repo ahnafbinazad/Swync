@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart'; // Import Provider
 import 'package:test_drive/main.dart';
 import 'package:test_drive/model/user_model.dart';
+import 'package:test_drive/providers/user_provider.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
 import 'package:test_drive/reuseable_widgets/reuseable_widgets.dart';
 import 'package:test_drive/screens/login.dart';
@@ -124,7 +125,7 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 100),
+                    SizedBox(height: 75),
                   ],
                 ),
               ],

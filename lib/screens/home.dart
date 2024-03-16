@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_drive/main.dart';
 import 'package:test_drive/model/user_model.dart';
+import 'package:test_drive/providers/user_provider.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
 import 'package:test_drive/reuseable_widgets/reuseable_widgets.dart';
 import 'package:test_drive/utils/colour_utils.dart';
@@ -41,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             padding: EdgeInsets.fromLTRB(
               20,
-              MediaQuery.of(context).size.height * 0.01,
+              MediaQuery.of(context).size.height * 0.00,
               20,
               0,
             ),
@@ -51,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    SizedBox(height: 50,),
+                    // SizedBox(height: 50,),
 
                     Center(
                       child: Text(
@@ -148,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ],
                 ),
-                SizedBox(height: 80), 
+                SizedBox(height: 75), 
               ],
             ),
           ),
