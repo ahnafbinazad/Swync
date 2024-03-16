@@ -52,53 +52,60 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // SizedBox(height: 50,),
+                    SizedBox(height: 20,),
 
-                    Center(
-                      child: Text(
-                        "Hello,",
-                        style: TextStyle(
-                          fontSize: 26,
-                          color: Colors.black, 
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ),
+                    // Center(
+                    //   child: Text(
+                    //     "Hello",
+                    //     style: TextStyle(
+                    //       fontSize: 26,
+                    //       color: Colors.black, 
+                    //       fontWeight: FontWeight.bold
+                    //     ),
+                    //   ),
+                    // ),
 
                     Center(
                       child: Text(
                         // Display username from user data
-                        user?.username ?? '',
+                        "Hello ${user?.username}",
                         style: TextStyle(
-                          fontSize: 30, 
+                          fontSize: 24, 
                           color: Colors.black, 
                           fontWeight: FontWeight.bold
                         ),
                       ),
                     ),
 
-                    Divider(
-                      thickness: 1, 
-                      color: Colors.black87.withOpacity(0.4),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 60),
+                      child: Divider(
+                        thickness: 1, 
+                        color: Colors.black,
+                      ),
                     ),
 
-                    SizedBox(height: 10,),
+
+                    // SizedBox(height: 5,),
 
                     // Display user data if available
                     if (user != null) ...[
-                      Center(
-                        child: Text(
-                          'You Have\nTIME\nTo Keep Your Streak',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 26, 
-                            color: Colors.black, 
-                            fontWeight: FontWeight.bold
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: Center(
+                          child: Text(
+                            'You have\nTIME\nto keep streaking',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 22, 
+                              color: Colors.black, 
+                              fontWeight: FontWeight.bold
+                            ),
                           ),
                         ),
                       ),
 
-                      SizedBox(height: 10,),
+                      // SizedBox(height: 10,),
 
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 55), 
@@ -119,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 'Record Workout',
                                 style: TextStyle(
                                   fontSize: 22,
-                                  color: Colors.black87,
+                                  color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -128,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
 
-                      SizedBox(height: 10),
+                      SizedBox(height: 20),
 
                       // Display user data using StatCard
                       StatCard(
