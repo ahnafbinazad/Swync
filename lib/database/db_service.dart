@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:test_drive/model/leaderboard_model.dart';
 import 'package:test_drive/model/user_model.dart';
 
 class DbService extends ChangeNotifier {
@@ -45,15 +46,15 @@ class DbService extends ChangeNotifier {
       "userId" : fUser.uid,
       "email" : email,
       "username" : username,
-      "totalWorkoutTime" : 0,
-      "totalWorkoutDays" : 0,
-      "bestStreak" : 0,
+      "totalWorkoutTime" : 500,
+      "totalWorkoutDays" : 60,
+      "bestStreak" : 234,
       "bestRank" : {},
       "friends" : [],
-      "streak" : 0,
-      "monthlyWorkoutTime" : 0,
-      "streakRank" : 0,
-      "workoutRank" : 0,
+      "streak" : 23,
+      "monthlyWorkoutTime" : 24543,
+      "streakRank" : 3,
+      "workoutRank" : 1,
       "league" : 0,
     });
 
@@ -87,5 +88,19 @@ class DbService extends ChangeNotifier {
 
 
     return userData;
+  }
+
+  void onUserDataChanged() {
+    var fUser = _fbAuth.currentUser;
+    if (fUser != null) {
+      _db.collection("users").doc(fUser.uid).snapshots().listen((snapshot) {
+        if (snapshot.exists) {
+          final userData = UserModel.fromSnapshot(snapshot);
+          // You can do something with userData here, like update the local state or notify listeners
+          print('User data changed: $userData');
+          getUserDetails(); // Call getUserDetails when user data changes
+        }
+      });
+    }
   }
 }

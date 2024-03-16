@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:test_drive/main.dart';
+import 'package:test_drive/model/user_model.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
 import 'package:test_drive/reuseable_widgets/reuseable_widgets.dart';
 import 'package:test_drive/utils/colour_utils.dart';
@@ -15,6 +18,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    // Retrieve user data using the provider
+    final userProvider = Provider.of<UserProvider>(context);
+    final UserModel? user = userProvider.user;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -53,19 +60,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           fontSize: 26,
                           color: Colors.black, 
                           fontWeight: FontWeight.bold
-                          ),
+                        ),
                       ),
                     ),
 
                     Center(
                       child: Text(
-                        // set to username from db
-                        'ahnafazad',
+                        // Display username from user data
+                        user?.username ?? '',
                         style: TextStyle(
                           fontSize: 30, 
                           color: Colors.black, 
                           fontWeight: FontWeight.bold
-                          ),
+                        ),
                       ),
                     ),
 
@@ -76,67 +83,69 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     SizedBox(height: 10,),
 
-                    // set time accordingly
-                    Center(
-                      child: Text(
-                        'You Have\nTIME\nTo Keep Your Streak',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 26, 
-                          color: Colors.black, 
-                          fontWeight: FontWeight.bold
+                    // Display user data if available
+                    if (user != null) ...[
+                      Center(
+                        child: Text(
+                          'You Have\nTIME\nTo Keep Your Streak',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 26, 
+                            color: Colors.black, 
+                            fontWeight: FontWeight.bold
                           ),
+                        ),
                       ),
-                    ),
-                    
-                    SizedBox(height: 10,),
 
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 55), // Adjust the horizontal padding as needed
-                      child: GestureDetector(
-                        onTap: () {
-                          print("record workout button pressed");
-                          // This is where you would add the functionality to record workouts
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.5, // Adjust the width of the button as needed
-                          height: 70, // Adjust the height of the button as needed
-                          decoration: BoxDecoration(
-                            color: Colors.deepOrangeAccent,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Record Workout',
-                              style: TextStyle(
-                                fontSize: 22,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold,
+                      SizedBox(height: 10,),
+
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 55), 
+                        child: GestureDetector(
+                          onTap: () {
+                            print("record workout button pressed");
+                            // This is where you would add the functionality to record workouts
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.5, 
+                            height: 70, 
+                            decoration: BoxDecoration(
+                              color: Colors.deepOrangeAccent,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Record Workout',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
 
-                    SizedBox(height: 10),
+                      SizedBox(height: 10),
 
-                    // Display user data using StatCard
-                    StatCard(
-                      description: 'Current Streak',
-                      imagePath: 'assets/images/streak.png',
-                      value: 30,
-                    ),
-                    StatCard(
-                      description: 'Workout League Rank',
-                      imagePath: 'assets/images/trophy-icon.png',
-                      value: 30,
-                    ),
-                    StatCard(
-                      description: 'Streak League Rank',
-                      imagePath: 'assets/images/award.png',
-                      value: 30,
-                    ),
+                      // Display user data using StatCard
+                      StatCard(
+                        description: 'Current Streak',
+                        imagePath: 'assets/images/streak.png',
+                        value: user.streak,
+                      ),
+                      StatCard(
+                        description: 'Workout League Rank',
+                        imagePath: 'assets/images/trophy-icon.png',
+                        value: user.workoutRank,
+                      ),
+                      StatCard(
+                        description: 'Streak League Rank',
+                        imagePath: 'assets/images/award.png',
+                        value: user.streakRank,
+                      ),
+                    ],
                   ],
                 ),
                 SizedBox(height: 80), 

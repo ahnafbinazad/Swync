@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:test_drive/database/db_service.dart';
 import 'package:test_drive/firebase_options.dart';
 import 'package:test_drive/model/user_model.dart';
@@ -9,69 +10,64 @@ import 'package:test_drive/screens/home.dart';
 import 'package:test_drive/screens/login.dart';
 import 'package:test_drive/screens/profile.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  
-  runApp(MyApp());
 
-  // Call getUserDetails and print its result
-  final user = await getUserDetails();
-  printUserDetails(user);
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(), // Create an instance of UserProvider
+      child: MyApp(), // Wrap MyApp with the UserProvider
+    ),
+  );
 }
 
-Future<UserModel> getUserDetails() async {
-  // Instantiate DbService
-  final dbService = DbService(FirebaseFirestore.instance, FirebaseAuth.instance);
-  
-  // Get user details
-  final user = await dbService.getUserDetails();
-  
-  return user;
-}
+class UserProvider extends ChangeNotifier {
+  UserModel? _user;
 
-void printUserDetails(UserModel user) {
-  print('User Details:');
-  print('------------');
-  print('User ID: ${user.userId}');
-  print('Email: ${user.email}');
-  print('Username: ${user.username}');
-  print('Total Workout Time: ${user.totalWorkoutTime}');
-  print('Total Workout Days: ${user.totalWorkoutDays}');
-  print('Best Streak: ${user.bestStreak}');
-  print('Best Rank: ${user.bestRank}');
-  print('Friends: ${user.friends}');
-  print('Streak: ${user.streak}');
-  print('Monthly Workout Time: ${user.monthlyWorkoutTime}');
-  print('Streak Rank: ${user.streakRank}');
-  print('Workout Rank: ${user.workoutRank}');
-  print('League: ${user.league}');
+  UserModel? get user => _user;
+
+  Future<void> fetchUserDetails() async {
+    final dbService = DbService(FirebaseFirestore.instance, FirebaseAuth.instance);
+    _user = await dbService.getUserDetails(); // Fetch user details
+    notifyListeners(); // Notify listeners that the user data has been updated
+  }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          // Return a loading indicator if the authentication state is still loading
-          return CircularProgressIndicator();
+          // Show a loading indicator while authentication state is being determined
+          return const CircularProgressIndicator();
         } else {
-          // If the user is signed in, navigate to the HomeScreen, otherwise, navigate to the LogInScreen
-          return MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
-              useMaterial3: true,
-            ),
-            // set the second screen to whatever is being tested cause otherwise on every hot reload it goes to the homescreen.
-            //for testing, second screen can be set to HomeScreen(), ProfileScreen(), or RanksScreen()
-            home: snapshot.data == null ? LogInScreen() : HomeScreen(),
-          );
+          final userProvider = Provider.of<UserProvider>(context);
+          if (snapshot.data == null) {
+            // If user is not authenticated, show the login screen
+            return MaterialApp(
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+                useMaterial3: true,
+              ),
+              home: LogInScreen(),
+            );
+          } else {
+            // If user is authenticated, fetch user details and show the home screen
+            userProvider.fetchUserDetails();
+            return MaterialApp(
+              title: 'Flutter Demo',
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+                useMaterial3: true,
+              ),
+              home: HomeScreen(),
+            );
+          }
         }
       },
     );
