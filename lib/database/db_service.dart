@@ -52,6 +52,7 @@ class DbService extends ChangeNotifier {
       "bestRank" : {},
       "friends" : [],
       "streak" : 23,
+      "streakedToday" : true,
       "monthlyWorkoutTime" : 24543,
       "streakRank" : 3,
       "workoutRank" : 1,
@@ -83,7 +84,6 @@ class DbService extends ChangeNotifier {
     var fUser = _fbAuth.currentUser;
 
     final snapshot = await _db.collection("users").doc(fUser?.uid).get();
-    // final userData = snapshot.docs.map((e) => UserModel.fromSnapshot(e)).single;
     final userData = UserModel.fromSnapshot(snapshot); // Directly using the snapshot
 
 
