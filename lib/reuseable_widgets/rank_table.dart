@@ -9,16 +9,17 @@ class RankTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height / 1.9,
+      height: MediaQuery.of(context).size.height * 0.55,
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(20),
-          topLeft: Radius.circular(20),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20),
+          bottom: Radius.circular(20), // Adjusted to make bottom round
         ),
       ),
       child: ListView.builder(
+        padding: const EdgeInsets.only(top: 15), // Added padding here
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         itemCount: userItems.length,
