@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:test_drive/firebase_options.dart';
 import 'package:test_drive/providers/rank_provider.dart';
 import 'package:test_drive/providers/user_provider.dart';
+import 'package:test_drive/screens/home.dart';
 import 'package:test_drive/screens/login.dart';
 import 'package:test_drive/screens/ranks.dart';
 
@@ -102,7 +103,7 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
                 useMaterial3: true,
               ),
-              home: RanksScreen(),
+              home: HomeScreen(),
             );
           }
         }
