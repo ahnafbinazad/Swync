@@ -52,6 +52,7 @@ class DbService extends ChangeNotifier {
       "friends" : [],
       "streak" : 23,
       "streakedToday" : true,
+      "lastStreakTime" : "2024-03-17T12:00:00",
       "monthlyWorkoutTime" : 24543,
       "streakRank" : 3,
       "workoutRank" : 1,

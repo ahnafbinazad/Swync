@@ -10,6 +10,8 @@ class UserModel {
   final Map<String, dynamic> bestRank;
   final List<dynamic> friends;
   final int streak;
+  final bool streakedToday;
+  final DateTime? lastStreakTime; // Nullable DateTime
   final int monthlyWorkoutTime;
   final int streakRank;
   final int workoutRank;
@@ -25,6 +27,8 @@ class UserModel {
     required this.bestRank,
     required this.friends,
     required this.streak,
+    required this.streakedToday,
+    required this.lastStreakTime,
     required this.monthlyWorkoutTime,
     required this.streakRank,
     required this.workoutRank,
@@ -44,6 +48,8 @@ class UserModel {
       bestRank: data['bestRank'],
       friends: List<dynamic>.from(data['friends']),
       streak: data['streak'],
+      streakedToday: data['streakedToday'],
+      lastStreakTime: data['lastStreakTime'] != null ? DateTime.parse(data['lastStreakTime']) : null,
       monthlyWorkoutTime: data['monthlyWorkoutTime'],
       streakRank: data['streakRank'],
       workoutRank: data['workoutRank'],

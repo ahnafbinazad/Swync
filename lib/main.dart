@@ -28,6 +28,8 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    bool userDetailsFetched = false; // Track if user details have been fetched
+
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
@@ -48,8 +50,38 @@ class MyApp extends StatelessWidget {
               // home: SignUpScreen(),
             );
           } else {
-            // If user is authenticated, fetch user details and show the home screen
-            userProvider.fetchUserDetails();
+            // If user is authenticated and user details haven't been fetched yet, fetch user details
+            if (!userDetailsFetched) {
+              userProvider.fetchUserDetails();
+              userDetailsFetched = true; // Mark user details as fetched
+            }
+
+            // Print user details only if user details have been fetched
+            if (userDetailsFetched) {
+              final user = userProvider.user;
+              if (user != null) {
+                print('User Details:');
+                print('User ID: ${user.userId}');
+                print('Email: ${user.email}');
+                print('Username: ${user.username}');
+                print('Total Workout Time: ${user.totalWorkoutTime}');
+                print('Total Workout Days: ${user.totalWorkoutDays}');
+                print('Best Streak: ${user.bestStreak}');
+                print('Best Rank: ${user.bestRank}');
+                print('Friends: ${user.friends}');
+                print('Streak: ${user.streak}');
+                print('Streaked Today: ${user.streakedToday}');
+                print('Last Streak Time: ${user.lastStreakTime}');
+                print('Monthly Workout Time: ${user.monthlyWorkoutTime}');
+                print('Streak Rank: ${user.streakRank}');
+                print('Workout Rank: ${user.workoutRank}');
+                print('League: ${user.league}');
+                print('\n');
+              } else {
+                print('User details not available.');
+              }
+            }
+
             return MaterialApp(
               title: 'Flutter Demo',
               theme: ThemeData(
