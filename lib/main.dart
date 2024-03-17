@@ -1,16 +1,12 @@
-// ignore_for_file: unused_import
-
+import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_drive/firebase_options.dart';
+import 'package:test_drive/providers/rank_provider.dart';
 import 'package:test_drive/providers/user_provider.dart';
-import 'package:test_drive/screens/home.dart';
 import 'package:test_drive/screens/login.dart';
-import 'package:test_drive/screens/profile.dart';
 import 'package:test_drive/screens/ranks.dart';
-import 'package:test_drive/screens/register.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,9 +14,12 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => UserProvider(), // Create an instance of UserProvider
-      child: MyApp(), // Wrap MyApp with the UserProvider
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => RankProvider()),
+      ],
+      child: MyApp(),
     ),
   );
 }
@@ -28,7 +27,8 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    bool userDetailsFetched = false; // Track if user details have been fetched
+    bool userDetailsFetched = false;
+    bool dataPrinted = false; // Add a boolean flag to track printing
 
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
@@ -47,17 +47,18 @@ class MyApp extends StatelessWidget {
                 useMaterial3: true,
               ),
               home: LogInScreen(),
-              // home: SignUpScreen(),
             );
           } else {
-            // If user is authenticated and user details haven't been fetched yet, fetch user details
             if (!userDetailsFetched) {
               userProvider.fetchUserDetails();
-              userDetailsFetched = true; // Mark user details as fetched
+              userDetailsFetched = true;
             }
 
-            // Print user details only if user details have been fetched
-            if (userDetailsFetched) {
+            final rankProvider = Provider.of<RankProvider>(context);
+            rankProvider.fetchLeaderBoard(); // Call fetchLeaderBoard method
+
+            // Print data if it hasn't been printed already
+            if (!dataPrinted) {
               final user = userProvider.user;
               if (user != null) {
                 print('User Details:');
@@ -68,18 +69,31 @@ class MyApp extends StatelessWidget {
                 print('Total Workout Days: ${user.totalWorkoutDays}');
                 print('Best Streak: ${user.bestStreak}');
                 print('Best Rank: ${user.bestRank}');
-                print('Friends: ${user.friends}');
                 print('Streak: ${user.streak}');
                 print('Streaked Today: ${user.streakedToday}');
                 print('Last Streak Time: ${user.lastStreakTime}');
                 print('Monthly Workout Time: ${user.monthlyWorkoutTime}');
                 print('Streak Rank: ${user.streakRank}');
                 print('Workout Rank: ${user.workoutRank}');
-                print('League: ${user.league}');
                 print('\n');
               } else {
                 print('User details not available.');
               }
+
+              // Print rank details
+              final leaderBoard = rankProvider.leaderBoard;
+              print('Leaderboard Items:');
+              leaderBoard.forEach((item) {
+                print('User ID: ${item.userId}');
+                print('Username: ${item.username}');
+                print('Streak: ${item.streak}');
+                print('Monthly Workout Time: ${item.monthlyWorkoutTime}');
+                print('Streak Rank: ${item.streakRank}');
+                print('Workout Rank: ${item.workoutRank}');
+                print('\n');
+              });
+
+              dataPrinted = true; // Update the flag to indicate that printing is done
             }
 
             return MaterialApp(
@@ -88,8 +102,6 @@ class MyApp extends StatelessWidget {
                 colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
                 useMaterial3: true,
               ),
-              // home: HomeScreen(),
-              // home: ProfileScreen(),
               home: RanksScreen(),
             );
           }

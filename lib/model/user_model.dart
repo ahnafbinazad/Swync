@@ -8,14 +8,12 @@ class UserModel {
   final int totalWorkoutDays;
   final int bestStreak;
   final Map<String, dynamic> bestRank;
-  final List<dynamic> friends;
   final int streak;
   final bool streakedToday;
-  final DateTime? lastStreakTime; // Nullable DateTime
+  final DateTime? lastStreakTime;
   final int monthlyWorkoutTime;
   final int streakRank;
   final int workoutRank;
-  final int league;
 
   UserModel({
     required this.userId,
@@ -25,14 +23,12 @@ class UserModel {
     required this.totalWorkoutDays,
     required this.bestStreak,
     required this.bestRank,
-    required this.friends,
     required this.streak,
     required this.streakedToday,
     required this.lastStreakTime,
     required this.monthlyWorkoutTime,
     required this.streakRank,
     required this.workoutRank,
-    required this.league,
   });
 
   factory UserModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
@@ -46,14 +42,12 @@ class UserModel {
       totalWorkoutDays: data['totalWorkoutDays'],
       bestStreak: data['bestStreak'],
       bestRank: data['bestRank'],
-      friends: List<dynamic>.from(data['friends']),
       streak: data['streak'],
       streakedToday: data['streakedToday'],
       lastStreakTime: data['lastStreakTime'] != null ? DateTime.parse(data['lastStreakTime']) : null,
       monthlyWorkoutTime: data['monthlyWorkoutTime'],
       streakRank: data['streakRank'],
       workoutRank: data['workoutRank'],
-      league: data['league'],
     );
   }
 }

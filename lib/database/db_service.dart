@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:test_drive/model/leaderboard_model.dart';
 import 'package:test_drive/model/user_model.dart';
 
 class DbService extends ChangeNotifier {
@@ -49,14 +50,12 @@ class DbService extends ChangeNotifier {
       "totalWorkoutDays" : 60,
       "bestStreak" : 234,
       "bestRank" : {},
-      "friends" : [],
       "streak" : 23,
       "streakedToday" : false,
       "lastStreakTime" : "2024-03-17T12:00:00",
       "monthlyWorkoutTime" : 24543,
       "streakRank" : 3,
       "workoutRank" : 1,
-      "league" : 0,
     });
 
   await _db.collection("leaderBoard").doc(fUser.uid).set({
@@ -66,9 +65,7 @@ class DbService extends ChangeNotifier {
       "monthlyWorkoutTime" : 0,
       "streakRank" : 0,
       "workoutRank" : 0,
-      "league" : 0,
     });
-
   }
 
   Future<bool> isUsernameAvailable(String username) async {
@@ -102,5 +99,23 @@ class DbService extends ChangeNotifier {
         }
       });
     }
+  }
+
+  Future<List<LeaderBoardModel>> getLeaderBoard() async {
+    List<LeaderBoardModel> leaderBoardList = [];
+
+    try {
+      final QuerySnapshot querySnapshot =
+          await _db.collection("leaderBoard").get();
+
+      for (final doc in querySnapshot.docs) {
+        final leaderBoardData = LeaderBoardModel.fromSnapshot(doc as DocumentSnapshot<Map<String, dynamic>>);
+        leaderBoardList.add(leaderBoardData);
+      }
+    } catch (e) {
+      print("Error retrieving leader board: $e");
+    }
+
+    return leaderBoardList;
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:test_drive/utils/colour_utils.dart';
 
 class RankTable extends StatelessWidget {
   final List<UserItem> userItems;

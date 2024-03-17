@@ -7,7 +7,6 @@ class LeaderBoardModel {
   final int monthlyWorkoutTime;
   final int streakRank;
   final int workoutRank;
-  final int league;
 
   LeaderBoardModel({
     required this.userId,
@@ -16,7 +15,6 @@ class LeaderBoardModel {
     required this.monthlyWorkoutTime,
     required this.streakRank,
     required this.workoutRank,
-    required this.league,
   });
 
 factory LeaderBoardModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> document) {
@@ -33,7 +31,6 @@ factory LeaderBoardModel.fromSnapshot(DocumentSnapshot<Map<String, dynamic>> doc
     monthlyWorkoutTime: data['monthlyWorkoutTime'] ?? 0,
     streakRank: data['streakRank'] ?? 0,
     workoutRank: data['workoutRank'] ?? 0,
-    league: data['league'] ?? 0,
   );
 }
 
