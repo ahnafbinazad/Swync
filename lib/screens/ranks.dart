@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
+import 'package:test_drive/reuseable_widgets/rank_table.dart';
 import 'package:test_drive/utils/colour_utils.dart';
 
 class RanksScreen extends StatefulWidget {
@@ -12,16 +13,18 @@ class _RanksScreenState extends State<RanksScreen> {
   double _glowPosition = 0; // Position of the glow indicator
 
   // Test data
-  List<Map<String, dynamic>> _monthlyWorkoutData = [
+  final List<Map<String, dynamic>> _monthlyWorkoutData = [
     {'username': 'User1', 'monthlyWorkoutTime': 120},
     {'username': 'User2', 'monthlyWorkoutTime': 90},
     {'username': 'User3', 'monthlyWorkoutTime': 150},
+    // Add more data as needed
   ];
 
-  List<Map<String, dynamic>> _streakData = [
+  final List<Map<String, dynamic>> _streakData = [
     {'username': 'User1', 'streak': 5},
     {'username': 'User2', 'streak': 3},
     {'username': 'User3', 'streak': 7},
+    // Add more data as needed
   ];
 
   @override
@@ -46,8 +49,9 @@ class _RanksScreenState extends State<RanksScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(height: 100),
+                  SizedBox(height: 60), // Top Padding
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
@@ -63,17 +67,32 @@ class _RanksScreenState extends State<RanksScreen> {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: _selectedTable == 'Workouts'
-                        ? _buildDataTable(_monthlyWorkoutData)
-                        : _buildDataTable(_streakData),
+                  SizedBox(height: 20), // Spacing between table selection and table
+                  ProfilePageTable(
+                    userItems: _selectedTable == 'Workouts'
+                        ? _monthlyWorkoutData.map((item) {
+                            return UserItem(
+                              rank: item['username'],
+                              image: 'assets/images/woman.png', // Provide an appropriate image path
+                              name: item['username'],
+                              point: item['monthlyWorkoutTime'],
+                            );
+                          }).toList()
+                        : _streakData.map((item) {
+                            return UserItem(
+                              rank: item['username'],
+                              image: 'assets/images/woman.png', // Provide an appropriate image path
+                              name: item['username'],
+                              point: item['streak'],
+                            );
+                          }).toList(),
                   ),
                 ],
               ),
             ),
           ),
           AnimatedPositioned(
-            duration: Duration(milliseconds: 300),
+            duration: Duration(milliseconds: 800),
             left: _glowPosition,
             bottom: 70,
             child: Container(
@@ -142,7 +161,7 @@ class _RanksScreenState extends State<RanksScreen> {
               table,
               style: const TextStyle(
                 color: Colors.black,
-                fontSize: 18,
+                fontSize: 20, // Increase font size
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -152,25 +171,24 @@ class _RanksScreenState extends State<RanksScreen> {
     );
   }
 
-  Widget _buildDataTable(List<Map<String, dynamic>> data) {
-    return DataTable(
-      columns: [
-        DataColumn(label: Text('Username')),
-        DataColumn(
-          label: Text(_selectedTable == 'Workouts' ? 'Minutes' : 'Streak'),
-        ),
-      ],
-      rows: data
-          .map(
-            (item) => DataRow(cells: [
-              DataCell(Text(item['username'])),
-              DataCell(Text(
-                '${item[_selectedTable == 'Workouts' ? 'monthlyWorkoutTime' : 'streak']}',
-              )),
-            ]),
-          )
-          .toList(),
+  Widget _buildDataColumnLabel(String label) {
+    return Text(
+      label,
+      style: TextStyle(
+        fontSize: 18, // Increase font size
+        fontWeight: FontWeight.bold,
+      ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
 
