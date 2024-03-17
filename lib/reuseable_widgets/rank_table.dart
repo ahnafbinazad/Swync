@@ -8,7 +8,7 @@ class RankTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.55,
+      height: MediaQuery.of(context).size.height * 0.45,
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -79,3 +79,66 @@ class UserItem {
     required this.point,
   });
 }
+
+
+class UserCard extends StatelessWidget {
+  final int rank;
+  final String image;
+  final String name;
+  final int point;
+
+  const UserCard({
+    Key? key,
+    required this.rank,
+    required this.image,
+    required this.name,
+    required this.point,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          children: [
+            Text(
+              rank.toString(),
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(width: 15),
+            CircleAvatar(
+              radius: 25,
+              backgroundImage: AssetImage(image),
+            ),
+            const SizedBox(width: 15),
+            Text(
+              name,
+              style: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const Spacer(),
+            Text(
+              point.toString(),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+

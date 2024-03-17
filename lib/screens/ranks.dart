@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:test_drive/providers/rank_provider.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
 import 'package:test_drive/reuseable_widgets/rank_table.dart';
 import 'package:test_drive/utils/colour_utils.dart';
@@ -11,26 +13,6 @@ class RanksScreen extends StatefulWidget {
 class _RanksScreenState extends State<RanksScreen> {
   String _selectedTable = 'Workouts'; // Default table
   double _glowPosition = 0; // Position of the glow indicator
-
-  // Test data
-    final List<Map<String, dynamic>> _monthlyWorkoutData = [
-    {'rank': 1, 'username': 'ahnafazad', 'monthlyWorkoutTime': 120},
-    {'rank': 2, 'username': 'User2', 'monthlyWorkoutTime': 90},
-    {'rank': 3, 'username': 'User3', 'monthlyWorkoutTime': 150},
-    {'rank': 4, 'username': 'User4', 'monthlyWorkoutTime': 110},
-    {'rank': 5, 'username': 'User5', 'monthlyWorkoutTime': 140},
-    {'rank': 6, 'username': 'User6', 'monthlyWorkoutTime': 80},
-    {'rank': 7, 'username': 'User7', 'monthlyWorkoutTime': 130},
-    {'rank': 8, 'username': 'User8', 'monthlyWorkoutTime': 100},
-    {'rank': 9, 'username': 'User9', 'monthlyWorkoutTime': 160},
-    {'rank': 10, 'username': 'User10', 'monthlyWorkoutTime': 170},
-  ];
-
-  final List<Map<String, dynamic>> _streakData = [
-    {'rank': 1, 'username': 'User1', 'streak': 5},
-    {'rank': 2, 'username': 'User2', 'streak': 3},
-  ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -89,22 +71,8 @@ class _RanksScreenState extends State<RanksScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: RankTable(
                       userItems: _selectedTable == 'Workouts'
-                          ? _monthlyWorkoutData.map((item) {
-                              return UserItem(
-                                rank: item['rank'],
-                                image: 'assets/images/woman.png', // Provide an appropriate image path
-                                name: item['username'],
-                                point: item['monthlyWorkoutTime'],
-                              );
-                            }).toList()
-                          : _streakData.map((item) {
-                              return UserItem(
-                                rank: item['rank'],
-                                image: 'assets/images/woman.png', // Provide an appropriate image path
-                                name: item['username'],
-                                point: item['streak'],
-                              );
-                            }).toList(),
+                          ? _buildMonthlyWorkoutData(context)
+                          : _buildStreakData(context),
                     ),
                   ),
                 ],
@@ -191,6 +159,30 @@ class _RanksScreenState extends State<RanksScreen> {
     );
   }
 
+  List<UserItem> _buildMonthlyWorkoutData(BuildContext context) {
+    final rankProvider = Provider.of<RankProvider>(context);
+    return rankProvider.leaderBoard.map((item) {
+      return UserItem(
+        rank: item.streakRank,
+        image: 'assets/images/woman.png', // Provide an appropriate image path
+        name: item.username,
+        point: item.monthlyWorkoutTime,
+      );
+    }).toList();
+  }
+
+  List<UserItem> _buildStreakData(BuildContext context) {
+    final rankProvider = Provider.of<RankProvider>(context);
+    return rankProvider.leaderBoard.map((item) {
+      return UserItem(
+        rank: item.workoutRank,
+        image: 'assets/images/woman.png', // Provide an appropriate image path
+        name: item.username,
+        point: item.streak,
+      );
+    }).toList();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -204,6 +196,9 @@ class _RanksScreenState extends State<RanksScreen> {
 
 void main() {
   runApp(MaterialApp(
-    home: RanksScreen(),
+    home: ChangeNotifierProvider(
+      create: (context) => RankProvider(),
+      child: RanksScreen(),
+    ),
   ));
 }

@@ -61,8 +61,8 @@ class DbService extends ChangeNotifier {
   await _db.collection("leaderBoard").doc(fUser.uid).set({
       "userId" : fUser.uid,
       "username" : username,
-      "streak" : 0,
-      "monthlyWorkoutTime" : 0,
+      "streak" : 50,
+      "monthlyWorkoutTime" : 69,
       "streakRank" : 0,
       "workoutRank" : 0,
     });
