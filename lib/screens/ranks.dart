@@ -14,7 +14,7 @@ class _RanksScreenState extends State<RanksScreen> {
 
   // Test data
     final List<Map<String, dynamic>> _monthlyWorkoutData = [
-    {'rank': 1, 'username': 'User1', 'monthlyWorkoutTime': 120},
+    {'rank': 1, 'username': 'ahnafazad', 'monthlyWorkoutTime': 120},
     {'rank': 2, 'username': 'User2', 'monthlyWorkoutTime': 90},
     {'rank': 3, 'username': 'User3', 'monthlyWorkoutTime': 150},
     {'rank': 4, 'username': 'User4', 'monthlyWorkoutTime': 110},
@@ -24,39 +24,11 @@ class _RanksScreenState extends State<RanksScreen> {
     {'rank': 8, 'username': 'User8', 'monthlyWorkoutTime': 100},
     {'rank': 9, 'username': 'User9', 'monthlyWorkoutTime': 160},
     {'rank': 10, 'username': 'User10', 'monthlyWorkoutTime': 170},
-    {'rank': 11, 'username': 'User11', 'monthlyWorkoutTime': 75},
-    {'rank': 12, 'username': 'User12', 'monthlyWorkoutTime': 145},
-    {'rank': 13, 'username': 'User13', 'monthlyWorkoutTime': 115},
-    {'rank': 14, 'username': 'User14', 'monthlyWorkoutTime': 125},
-    {'rank': 15, 'username': 'User15', 'monthlyWorkoutTime': 105},
-    {'rank': 16, 'username': 'User16', 'monthlyWorkoutTime': 135},
-    {'rank': 17, 'username': 'User17', 'monthlyWorkoutTime': 155},
-    {'rank': 18, 'username': 'User18', 'monthlyWorkoutTime': 165},
-    {'rank': 19, 'username': 'User19', 'monthlyWorkoutTime': 95},
-    {'rank': 20, 'username': 'User20', 'monthlyWorkoutTime': 180},
   ];
 
   final List<Map<String, dynamic>> _streakData = [
     {'rank': 1, 'username': 'User1', 'streak': 5},
     {'rank': 2, 'username': 'User2', 'streak': 3},
-    {'rank': 3, 'username': 'User3', 'streak': 7},
-    {'rank': 4, 'username': 'User4', 'streak': 4},
-    {'rank': 5, 'username': 'User5', 'streak': 6},
-    {'rank': 6, 'username': 'User6', 'streak': 2},
-    {'rank': 7, 'username': 'User7', 'streak': 8},
-    {'rank': 8, 'username': 'User8', 'streak': 5},
-    {'rank': 9, 'username': 'User9', 'streak': 9},
-    {'rank': 10, 'username': 'User10', 'streak': 10},
-    {'rank': 11, 'username': 'User11', 'streak': 3},
-    {'rank': 12, 'username': 'User12', 'streak': 7},
-    {'rank': 13, 'username': 'User13', 'streak': 6},
-    {'rank': 14, 'username': 'User14', 'streak': 5},
-    {'rank': 15, 'username': 'User15', 'streak': 4},
-    {'rank': 16, 'username': 'User16', 'streak': 8},
-    {'rank': 17, 'username': 'User17', 'streak': 9},
-    {'rank': 18, 'username': 'User18', 'streak': 11},
-    {'rank': 19, 'username': 'User19', 'streak': 2},
-    {'rank': 20, 'username': 'User20', 'streak': 12},
   ];
 
 

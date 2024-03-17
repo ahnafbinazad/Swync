@@ -50,35 +50,14 @@ class RankTable extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Container(
-                  height: 25,
-                  width: 70,
-                  decoration: BoxDecoration(
-                    color: Colors.black12,
-                    borderRadius: BorderRadius.circular(50),
+                Text(
+                  items.point.toString(), // Removed from Container
+                  style: const TextStyle( // Added direct styling here
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Colors.black,
                   ),
-                  child: Row(
-                    children: [
-                      const SizedBox(width: 5),
-                      RotatedBox(
-                        quarterTurns: 1,
-                        child: Icon(
-                          Icons.arrow_forward_ios,
-                          color: hexStringToColour("#FFBB00"),
-                        ),
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        items.point.toString(),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 10,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+                ),
               ],
             ),
           );
