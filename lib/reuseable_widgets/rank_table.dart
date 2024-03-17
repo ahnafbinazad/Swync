@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:test_drive/utils/colour_utils.dart';
 
-class ProfilePageTable extends StatelessWidget {
+class RankTable extends StatelessWidget {
   final List<UserItem> userItems;
 
-  const ProfilePageTable({Key? key, required this.userItems}) : super(key: key);
+  const RankTable({Key? key, required this.userItems}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,22 +29,18 @@ class ProfilePageTable extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  items.rank,
+                  items.rank.toString(),
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(
-                  width: 15,
-                ),
+                const SizedBox(width: 15),
                 CircleAvatar(
                   radius: 25,
                   backgroundImage: AssetImage(items.image),
                 ),
-                const SizedBox(
-                  width: 15,
-                ),
+                const SizedBox(width: 15),
                 Text(
                   items.name,
                   style: const TextStyle(
@@ -62,9 +58,7 @@ class ProfilePageTable extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      const SizedBox(
-                        width: 5,
-                      ),
+                      const SizedBox(width: 5),
                       RotatedBox(
                         quarterTurns: 1,
                         child: Icon(
@@ -72,9 +66,7 @@ class ProfilePageTable extends StatelessWidget {
                           color: hexStringToColour("#FFBB00"),
                         ),
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
+                      const SizedBox(width: 5),
                       Text(
                         items.point.toString(),
                         style: const TextStyle(
@@ -96,7 +88,7 @@ class ProfilePageTable extends StatelessWidget {
 }
 
 class UserItem {
-  final String rank;
+  final int rank;
   final String image;
   final String name;
   final int point;
