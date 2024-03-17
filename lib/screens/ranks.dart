@@ -4,7 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
 import 'package:test_drive/utils/colour_utils.dart';
 
-class RanksScreen extends StatelessWidget {
+class RanksScreen extends StatefulWidget {
+  @override
+  _RanksScreenState createState() => _RanksScreenState();
+}
+
+class _RanksScreenState extends State<RanksScreen> {
+  String _selectedTable = 'Monthly Minutes Worked Out'; // Default table
+
+  // Test data
+  List<Map<String, dynamic>> _monthlyWorkoutData = [
+    {'username': 'User1', 'monthlyWorkoutTime': 120},
+    {'username': 'User2', 'monthlyWorkoutTime': 90},
+    {'username': 'User3', 'monthlyWorkoutTime': 150},
+  ];
+
+  List<Map<String, dynamic>> _streakData = [
+    {'username': 'User1', 'streak': 5},
+    {'username': 'User2', 'streak': 3},
+    {'username': 'User3', 'streak': 7},
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,11 +44,37 @@ class RanksScreen extends StatelessWidget {
                 end: Alignment.bottomCenter,
               ),
             ),
-            child: Center(
-              child: Text(
-                'Ranks Screen',
-                style: TextStyle(fontSize: 24, color: Colors.black),
-              ),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DropdownButton<String>(
+                    value: _selectedTable,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedTable = newValue!;
+                      });
+                    },
+                    items: <String>[
+                      'Monthly Minutes Worked Out',
+                      'Streaks',
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value,
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                Expanded(
+                  child: _selectedTable == 'Monthly Minutes Worked Out'
+                      ? _buildDataTable(_monthlyWorkoutData)
+                      : _buildDataTable(_streakData),
+                ),
+              ],
             ),
           ),
           Positioned(
@@ -43,4 +89,29 @@ class RanksScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildDataTable(List<Map<String, dynamic>> data) {
+    return DataTable(
+      columns: [
+        DataColumn(label: Text('Username')),
+        DataColumn(
+            label: Text(_selectedTable == 'Monthly Minutes Worked Out'
+                ? 'Minutes'
+                : 'Streak')),
+      ],
+      rows: data
+          .map((item) => DataRow(cells: [
+                DataCell(Text(item['username'])),
+                DataCell(Text(
+                    '${item[_selectedTable == 'Monthly Minutes Worked Out' ? 'monthlyWorkoutTime' : 'streak']}')),
+              ]))
+          .toList(),
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    home: RanksScreen(),
+  ));
 }

@@ -51,8 +51,10 @@ class _StreakWidgetState extends State<StreakWidget> {
 
   @override
   Widget build(BuildContext context) {
-    String timeText =
-        '${_remainingTime.inHours}:${_remainingTime.inMinutes.remainder(60)}:${_remainingTime.inSeconds.remainder(60)}';
+    String hours = _remainingTime.inHours.toString().padLeft(2, '0');
+    String minutes = _remainingTime.inMinutes.remainder(60).toString().padLeft(2, '0');
+    String seconds = _remainingTime.inSeconds.remainder(60).toString().padLeft(2, '0');
+    String timeText = '$hours:$minutes:$seconds';
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
