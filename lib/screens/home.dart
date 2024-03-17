@@ -82,21 +82,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (user != null) ...[
                       streakWidgetCreator.createTextWidget(user.streakedToday, user.lastStreakTime),
 
-                      // Padding(
-                      //   padding: EdgeInsets.symmetric(vertical: 20),
-                      //   child: Center(
-                      //     child: Text(
-                      //       'You have\nTIME\nto keep streaking',
-                      //       textAlign: TextAlign.center,
-                      //       style: TextStyle(
-                      //         fontSize: 22, 
-                      //         color: Colors.black, 
-                      //         fontWeight: FontWeight.bold
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
-
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 55), 
                         child: GestureDetector(
