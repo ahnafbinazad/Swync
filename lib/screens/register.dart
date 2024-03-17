@@ -2,7 +2,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:test_drive/database/db_service.dart';
+import 'package:test_drive/providers/user_provider.dart';
 import 'package:test_drive/reuseable_widgets/reuseable_widgets.dart';
 import 'package:test_drive/screens/home.dart';
 import 'package:test_drive/screens/login.dart';
@@ -95,11 +97,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 _isLoading
                     ? CircularProgressIndicator()
                     : signInSignUpButton(context, false, _attemptSignUp),
-                // const SizedBox(height: 20),
                 logInOption(),
                 const SizedBox(height: 50),
-
-
               ],
             ),
           ),
@@ -108,11 +107,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-    Row logInOption() {
+  Row logInOption() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("Already have account?",
+        const Text("Already have an account?",
             style: TextStyle(color: Colors.black)),
         GestureDetector(
           onTap: () {
@@ -177,6 +176,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       // Save user details to Firestore
       await _dbService.addNewUser(email: email, username: username);
+
+      // Update user details in the provider after successful sign-up
+      Provider.of<UserProvider>(context, listen: false).fetchUserDetails();
 
       Navigator.push(
         context,
