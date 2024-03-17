@@ -17,7 +17,7 @@ class RankTable extends StatelessWidget {
     sortedItems.sort((a, b) => b.point.compareTo(a.point));
 
     return Container(
-      height: MediaQuery.of(context).size.height * 0.45,
+      height: MediaQuery.of(context).size.height * 0.55,
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -33,6 +33,9 @@ class RankTable extends StatelessWidget {
         itemCount: sortedItems.length,
         itemBuilder: (context, index) {
           final items = sortedItems[index];
+          final isCurrentUser = items.name == currentUserName;
+          final isOnScreen = index < 5; // Assuming only the top 5 users are shown on the screen
+
           return Padding(
             padding: const EdgeInsets.only(right: 20, left: 20, bottom: 15),
             child: Row(
@@ -52,11 +55,13 @@ class RankTable extends StatelessWidget {
                       : AssetImage("assets/images/woman.png"), // Default image path
                 ),
                 const SizedBox(width: 15),
+                // Adjusted TextStyle to remove glow effect
                 Text(
                   items.name,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 17,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: isCurrentUser ? FontWeight.bold : isOnScreen ? FontWeight.w500 : FontWeight.normal,
+                    color: isCurrentUser ? Colors.deepOrangeAccent : null,
                   ),
                 ),
                 const Spacer(),
@@ -68,16 +73,6 @@ class RankTable extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                // Show a label for the current user
-                if (items.name == currentUserName)
-                  Text(
-                    ' (You)',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.blue, // You can adjust the color
-                    ),
-                  ),
               ],
             ),
           );
