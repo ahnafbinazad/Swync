@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_drive/providers/rank_provider.dart';
+import 'package:test_drive/providers/user_provider.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
 import 'package:test_drive/reuseable_widgets/rank_table.dart';
 import 'package:test_drive/utils/colour_utils.dart';
@@ -39,7 +40,6 @@ class _RanksScreenState extends State<RanksScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const SizedBox(height: 80), // Top Padding
-
                   const Center(
                     child: Text(
                       "Leaderboards",
@@ -50,7 +50,6 @@ class _RanksScreenState extends State<RanksScreen> {
                     ),
                   ),
                   const SizedBox(height: 10), // Top Padding
-
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
@@ -69,10 +68,15 @@ class _RanksScreenState extends State<RanksScreen> {
                   const SizedBox(height: 20), // Spacing between table selection and table
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: RankTable(
-                      userItems: _selectedTable == 'Workouts'
-                          ? _buildMonthlyWorkoutData(context)
-                          : _buildStreakData(context),
+                    child: Consumer<UserProvider>(
+                      builder: (context, userProvider, _) {
+                        return RankTable(
+                          userItems: _selectedTable == 'Workouts'
+                              ? _buildMonthlyWorkoutData(context)
+                              : _buildStreakData(context),
+                          currentUserName: userProvider.user?.username ?? '',
+                        );
+                      },
                     ),
                   ),
                 ],
@@ -163,7 +167,6 @@ class _RanksScreenState extends State<RanksScreen> {
     final rankProvider = Provider.of<RankProvider>(context);
     return rankProvider.leaderBoard.map((item) {
       return UserItem(
-        rank: item.streakRank,
         image: 'assets/images/user.png', // Provide an appropriate image path
         name: item.username,
         point: item.monthlyWorkoutTime,
@@ -175,7 +178,6 @@ class _RanksScreenState extends State<RanksScreen> {
     final rankProvider = Provider.of<RankProvider>(context);
     return rankProvider.leaderBoard.map((item) {
       return UserItem(
-        rank: item.workoutRank,
         image: 'assets/images/user.png', // Provide an appropriate image path
         name: item.username,
         point: item.streak,
@@ -196,8 +198,11 @@ class _RanksScreenState extends State<RanksScreen> {
 
 void main() {
   runApp(MaterialApp(
-    home: ChangeNotifierProvider(
-      create: (context) => RankProvider(),
+    home: MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => RankProvider()),
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+      ],
       child: RanksScreen(),
     ),
   ));

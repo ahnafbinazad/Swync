@@ -2,11 +2,20 @@ import 'package:flutter/material.dart';
 
 class RankTable extends StatelessWidget {
   final List<UserItem> userItems;
+  final String currentUserName;
 
-  const RankTable({Key? key, required this.userItems}) : super(key: key);
+  const RankTable({
+    Key? key,
+    required this.userItems,
+    required this.currentUserName,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // Sort userItems based on points in descending order
+    List<UserItem> sortedItems = List.from(userItems);
+    sortedItems.sort((a, b) => b.point.compareTo(a.point));
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.45,
       width: MediaQuery.of(context).size.width,
@@ -18,18 +27,18 @@ class RankTable extends StatelessWidget {
         ),
       ),
       child: ListView.builder(
-        padding: const EdgeInsets.only(top: 15), // Added padding here
+        padding: const EdgeInsets.only(top: 15),
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
-        itemCount: userItems.length,
+        itemCount: sortedItems.length,
         itemBuilder: (context, index) {
-          final items = userItems[index];
+          final items = sortedItems[index];
           return Padding(
             padding: const EdgeInsets.only(right: 20, left: 20, bottom: 15),
             child: Row(
               children: [
                 Text(
-                  items.rank.toString(),
+                  (index + 1).toString(), // Display rank as index + 1
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -52,13 +61,23 @@ class RankTable extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  items.point.toString(), // Removed from Container
-                  style: const TextStyle( // Added direct styling here
+                  items.point.toString(),
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                     color: Colors.black,
                   ),
                 ),
+                // Show a label for the current user
+                if (items.name == currentUserName)
+                  Text(
+                    ' (You)',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.blue, // You can adjust the color
+                    ),
+                  ),
               ],
             ),
           );
@@ -69,79 +88,13 @@ class RankTable extends StatelessWidget {
 }
 
 class UserItem {
-  final int rank;
   final String image;
   final String name;
   final int point;
 
   UserItem({
-    required this.rank,
     required this.image,
     required this.name,
     required this.point,
   });
-}
-
-
-class UserCard extends StatelessWidget {
-  final int rank;
-  final String image;
-  final String name;
-  final int point;
-
-  const UserCard({
-    Key? key,
-    required this.rank,
-    required this.image,
-    required this.name,
-    required this.point,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Row(
-          children: [
-            Text(
-              rank.toString(),
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(width: 15),
-            CircleAvatar(
-              radius: 25,
-              backgroundImage: image.isNotEmpty
-                  ? AssetImage(image)
-                  : AssetImage("assets/images/user.png"), // Default image path
-            ),
-            const SizedBox(width: 15),
-            Text(
-              name,
-              style: const TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const Spacer(),
-            Text(
-              point.toString(),
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: Colors.black,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
