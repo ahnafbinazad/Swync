@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 class StreakWidgetCreator {
   Widget createTextWidget(bool streakedToday, DateTime? lastStreakTime) {
     if (streakedToday) {
-      String timeText = lastStreakTime != null ? 'Last streak time: ${lastStreakTime.toString()}' : '';
+      //TO-DO: make this look nicer
 
       return Padding(
-        padding: EdgeInsets.symmetric(vertical: 20),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
         child: Center(
           child: Text(
-            'You have\n$timeText\nto keep streaking',
+            'You have completed your streak for today! \n\nWant to rise up the leaderboards?',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 22,
