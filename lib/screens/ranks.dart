@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
 import 'package:test_drive/utils/colour_utils.dart';
@@ -10,7 +8,8 @@ class RanksScreen extends StatefulWidget {
 }
 
 class _RanksScreenState extends State<RanksScreen> {
-  String _selectedTable = 'Monthly Minutes Worked Out'; // Default table
+  String _selectedTable = 'Workouts'; // Default table
+  double _glowPosition = 0; // Position of the glow indicator
 
   // Test data
   List<Map<String, dynamic>> _monthlyWorkoutData = [
@@ -44,37 +43,54 @@ class _RanksScreenState extends State<RanksScreen> {
                 end: Alignment.bottomCenter,
               ),
             ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownButton<String>(
-                    value: _selectedTable,
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _selectedTable = newValue!;
-                      });
-                    },
-                    items: <String>[
-                      'Monthly Minutes Worked Out',
-                      'Streaks',
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: TextStyle(color: Colors.black),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  SizedBox(height: 100),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: _buildTableSelection('Workouts', 'assets/images/trophy-icon.png'),
                         ),
-                      );
-                    }).toList(),
+                        SizedBox(width: 10),
+                        Expanded(
+                          child: _buildTableSelection('Streaks', 'assets/images/award.png'),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: _selectedTable == 'Monthly Minutes Worked Out'
-                      ? _buildDataTable(_monthlyWorkoutData)
-                      : _buildDataTable(_streakData),
-                ),
-              ],
+                  Expanded(
+                    child: _selectedTable == 'Workouts'
+                        ? _buildDataTable(_monthlyWorkoutData)
+                        : _buildDataTable(_streakData),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          AnimatedPositioned(
+            duration: Duration(milliseconds: 300),
+            left: _glowPosition,
+            bottom: 70,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.4,
+              height: 5,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.0), // Adjust the opacity here
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white.withOpacity(0.0),
+                    spreadRadius: 5,
+                    blurRadius: 10,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
             ),
           ),
           Positioned(
@@ -90,21 +106,69 @@ class _RanksScreenState extends State<RanksScreen> {
     );
   }
 
+  Widget _buildTableSelection(String table, String iconPath) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedTable = table;
+          _glowPosition = table == 'Workouts' ? 0 : MediaQuery.of(context).size.width * 0.5;
+        });
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+          color: _selectedTable == table ? Colors.white.withOpacity(0.7) : Colors.transparent,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.white.withOpacity(0.6),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, 0),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Image.asset(
+              iconPath,
+              height: 40,
+              width: 40,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 5),
+            Text(
+              table,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _buildDataTable(List<Map<String, dynamic>> data) {
     return DataTable(
       columns: [
         DataColumn(label: Text('Username')),
         DataColumn(
-            label: Text(_selectedTable == 'Monthly Minutes Worked Out'
-                ? 'Minutes'
-                : 'Streak')),
+          label: Text(_selectedTable == 'Workouts' ? 'Minutes' : 'Streak'),
+        ),
       ],
       rows: data
-          .map((item) => DataRow(cells: [
-                DataCell(Text(item['username'])),
-                DataCell(Text(
-                    '${item[_selectedTable == 'Monthly Minutes Worked Out' ? 'monthlyWorkoutTime' : 'streak']}')),
-              ]))
+          .map(
+            (item) => DataRow(cells: [
+              DataCell(Text(item['username'])),
+              DataCell(Text(
+                '${item[_selectedTable == 'Workouts' ? 'monthlyWorkoutTime' : 'streak']}',
+              )),
+            ]),
+          )
           .toList(),
     );
   }
