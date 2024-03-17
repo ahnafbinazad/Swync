@@ -164,7 +164,7 @@ class _RanksScreenState extends State<RanksScreen> {
     return rankProvider.leaderBoard.map((item) {
       return UserItem(
         rank: item.streakRank,
-        image: 'assets/images/woman.png', // Provide an appropriate image path
+        image: 'assets/images/user.png', // Provide an appropriate image path
         name: item.username,
         point: item.monthlyWorkoutTime,
       );
@@ -176,7 +176,7 @@ class _RanksScreenState extends State<RanksScreen> {
     return rankProvider.leaderBoard.map((item) {
       return UserItem(
         rank: item.workoutRank,
-        image: 'assets/images/woman.png', // Provide an appropriate image path
+        image: 'assets/images/user.png', // Provide an appropriate image path
         name: item.username,
         point: item.streak,
       );

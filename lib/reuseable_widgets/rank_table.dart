@@ -38,7 +38,9 @@ class RankTable extends StatelessWidget {
                 const SizedBox(width: 15),
                 CircleAvatar(
                   radius: 25,
-                  backgroundImage: AssetImage(items.image),
+                  backgroundImage: items.image.isNotEmpty
+                      ? AssetImage(items.image)
+                      : AssetImage("assets/images/woman.png"), // Default image path
                 ),
                 const SizedBox(width: 15),
                 Text(
@@ -116,7 +118,9 @@ class UserCard extends StatelessWidget {
             const SizedBox(width: 15),
             CircleAvatar(
               radius: 25,
-              backgroundImage: AssetImage(image),
+              backgroundImage: image.isNotEmpty
+                  ? AssetImage(image)
+                  : AssetImage("assets/images/user.png"), // Default image path
             ),
             const SizedBox(width: 15),
             Text(
@@ -141,4 +145,3 @@ class UserCard extends StatelessWidget {
     );
   }
 }
-
