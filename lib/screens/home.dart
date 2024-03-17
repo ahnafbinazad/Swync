@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, use_super_parameters
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_drive/model/user_model.dart';
 import 'package:test_drive/providers/user_provider.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
 import 'package:test_drive/reuseable_widgets/reuseable_widgets.dart';
+import 'package:test_drive/reuseable_widgets/streak_text.dart';
 import 'package:test_drive/utils/colour_utils.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,6 +21,9 @@ class _HomeScreenState extends State<HomeScreen> {
     // Retrieve user data using the provider
     final userProvider = Provider.of<UserProvider>(context);
     final UserModel? user = userProvider.user;
+
+    // Create an instance of StreakWidgetCreator
+    final streakWidgetCreator = StreakWidgetCreator();
 
     return Scaffold(
       body: Stack(
@@ -77,22 +80,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     // Display user data if available
                     if (user != null) ...[
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20),
-                        child: Center(
-                          child: Text(
-                            'You have\nTIME\nto keep streaking',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 22, 
-                              color: Colors.black, 
-                              fontWeight: FontWeight.bold
-                            ),
-                          ),
-                        ),
-                      ),
+                      streakWidgetCreator.createTextWidget(user.streakedToday, user.lastStreakTime),
 
-                      // SizedBox(height: 10,),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(vertical: 20),
+                      //   child: Center(
+                      //     child: Text(
+                      //       'You have\nTIME\nto keep streaking',
+                      //       textAlign: TextAlign.center,
+                      //       style: TextStyle(
+                      //         fontSize: 22, 
+                      //         color: Colors.black, 
+                      //         fontWeight: FontWeight.bold
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
 
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 55), 
