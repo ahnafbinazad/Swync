@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
-// import 'package:permission_handler/permission_handler.dart';
-
-// // Check and request camera permissions
-// Future<void> _requestCameraPermission() async {
-//   if (await Permission.camera.request().isGranted) {
-//     // Permission is granted, proceed with camera usage
-//   } else {
-//     // Permission denied, handle accordingly (e.g., show a message to the user)
-//   }
-// }
-
-
 class RecordWorkoutScreen extends StatefulWidget {
   @override
   _RecordWorkoutScreenState createState() => _RecordWorkoutScreenState();
@@ -28,11 +16,20 @@ class _RecordWorkoutScreenState extends State<RecordWorkoutScreen> {
   }
 
   Future<CameraController> _initializeCamera() async {
-    final cameras = await availableCameras();
-    final firstCamera = cameras.first;
-    final controller = CameraController(firstCamera, ResolutionPreset.high);
-    await controller.initialize();
-    return controller;
+    try {
+      final cameras = await availableCameras();
+      if (cameras.isEmpty) {
+        throw Exception('No cameras available');
+      }
+      final firstCamera = cameras.first;
+      final controller = CameraController(firstCamera, ResolutionPreset.high);
+      await controller.initialize();
+      return controller;
+    } catch (e) {
+      // Handle error appropriately
+      print('Error initializing camera: $e');
+      rethrow; // Rethrow the exception to propagate it to the caller
+    }
   }
 
   @override
