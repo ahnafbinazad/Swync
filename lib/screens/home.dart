@@ -6,6 +6,7 @@ import 'package:test_drive/providers/user_provider.dart';
 import 'package:test_drive/reuseable_widgets/navbar.dart';
 import 'package:test_drive/reuseable_widgets/reuseable_widgets.dart';
 import 'package:test_drive/reuseable_widgets/streak_text.dart';
+import 'package:test_drive/screens/workout_screen.dart';
 import 'package:test_drive/utils/colour_utils.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -87,7 +88,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: GestureDetector(
                           onTap: () {
                             print("record workout button pressed");
-                            // This is where you would add the functionality to record workouts
+                            // Navigate to the RecordWorkoutScreen
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => RecordWorkoutScreen()),
+                            );
                           },
                           child: Container(
                             width: MediaQuery.of(context).size.width * 0.5, 

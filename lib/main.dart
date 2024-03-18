@@ -7,7 +7,6 @@ import 'package:test_drive/providers/rank_provider.dart';
 import 'package:test_drive/providers/user_provider.dart';
 import 'package:test_drive/screens/home.dart';
 import 'package:test_drive/screens/login.dart';
-import 'package:test_drive/screens/ranks.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -94,7 +93,7 @@ class MyApp extends StatelessWidget {
                 print('\n');
               });
 
-              dataPrinted = true; // Update the flag to indicate that printing is done
+              dataPrinted = true;
             }
 
             return MaterialApp(
