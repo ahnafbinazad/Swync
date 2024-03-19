@@ -118,4 +118,89 @@ class DbService extends ChangeNotifier {
 
     return leaderBoardList;
   }
+
+  Future<void> updateLeaderboardRanks(List<LeaderBoardModel> leaderBoardList) async {
+  // Sort the leaderboard list based on monthlyWorkoutTime in descending order
+  leaderBoardList.sort((a, b) => b.monthlyWorkoutTime.compareTo(a.monthlyWorkoutTime));
+  
+  // Update workoutRank for each user in the leaderboard
+  for (int i = 0; i < leaderBoardList.length; i++) {
+    await _db.collection("leaderBoard").doc(leaderBoardList[i].userId).update({
+      "workoutRank": i + 1,
+    });
+  }
+
+  // Sort the leaderboard list based on streak in descending order
+  leaderBoardList.sort((a, b) => b.streak.compareTo(a.streak));
+  
+  // Update streakRank for each user in the leaderboard
+  for (int i = 0; i < leaderBoardList.length; i++) {
+    await _db.collection("leaderBoard").doc(leaderBoardList[i].userId).update({
+      "streakRank": i + 1,
+    });
+  }
+}
+
+Future<void> addStreak() async {
+    try {
+      final fUser = _fbAuth.currentUser;
+      if (fUser == null) {
+        throw Exception('User not authenticated');
+      }
+      
+      final userDoc = _db.collection("users").doc(fUser.uid);
+      final userData = await userDoc.get();
+
+      if (!userData.exists) {
+        throw Exception('User data not found');
+      }
+
+      final int currentStreak = userData.data()?['streak'] ?? 0;
+      final int newStreak = currentStreak + 1;
+
+      await userDoc.update({'streak': newStreak});
+    } catch (e) {
+      print('Error adding streak: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> resetStreak() async {
+    try {
+      final fUser = _fbAuth.currentUser;
+      if (fUser == null) {
+        throw Exception('User not authenticated');
+      }
+      
+      final userDoc = _db.collection("users").doc(fUser.uid);
+      await userDoc.update({'streak': 0});
+    } catch (e) {
+      print('Error resetting streak: $e');
+      rethrow;
+    }
+  }
+
+    Future<void> updateWorkoutTime(int workoutMinutes) async {
+    try {
+      final fUser = _fbAuth.currentUser;
+      if (fUser == null) {
+        throw Exception('User not authenticated');
+      }
+
+      final userDoc = _db.collection("users").doc(fUser.uid);
+      final userData = await userDoc.get();
+
+      if (!userData.exists) {
+        throw Exception('User data not found');
+      }
+
+      final int currentWorkoutTime = userData.data()?['totalWorkoutTime'] ?? 0;
+      final int newWorkoutTime = currentWorkoutTime + workoutMinutes;
+
+      await userDoc.update({'totalWorkoutTime': newWorkoutTime});
+    } catch (e) {
+      print('Error updating workout time: $e');
+      rethrow;
+    }
+  }
 }
