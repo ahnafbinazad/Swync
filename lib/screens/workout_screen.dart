@@ -8,12 +8,12 @@ class RecordWorkoutScreen extends StatefulWidget {
 
 class _RecordWorkoutScreenState extends State<RecordWorkoutScreen> {
   late Future<CameraController> _cameraControllerFuture;
-
+  
   @override
   void initState() {
     super.initState();
     _cameraControllerFuture = _initializeCamera();
-  }
+      }
 
   Future<CameraController> _initializeCamera() async {
     try {

@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:test_drive/database/db_service.dart';
 
 class StreakWidgetCreator {
   Widget createTextWidget(bool streakedToday, DateTime? lastStreakTime) {
@@ -26,6 +29,7 @@ class StreakWidget extends StatefulWidget {
 class _StreakWidgetState extends State<StreakWidget> {
   late Timer _timer;
   late Duration _remainingTime;
+  static final DbService _dbService = DbService(FirebaseFirestore.instance, FirebaseAuth.instance);
 
   @override
   void initState() {
@@ -46,7 +50,16 @@ class _StreakWidgetState extends State<StreakWidget> {
     DateTime now = DateTime.now();
     DateTime endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59);
     _remainingTime = endOfDay.difference(now);
-    setState(() {}); // Trigger UI update
+    setState(() {
+      if (!widget.streakedToday && _remainingTime <= Duration.zero) {
+        _resetStreak();
+      }
+    });
+  }
+
+  Future<void> _resetStreak() async {
+    // Call resetStreak method from DbService
+    await _dbService.resetStreak();
   }
 
   @override
@@ -61,7 +74,6 @@ class _StreakWidgetState extends State<StreakWidget> {
       child: Center(
         child: widget.streakedToday
             ? const Text(
-              // TO-DO: make this look nicer or be more dynamic
                 'You have completed your streak for today! \n\nWant to rise up the leaderboards?',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -71,7 +83,6 @@ class _StreakWidgetState extends State<StreakWidget> {
                 ),
               )
             : Text(
-              // TO-DO: make this look nicer or be more dynamic
                 'You have\n$timeText\nto keep streaking',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
