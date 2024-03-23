@@ -64,7 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             child: Column(
               children: <Widget>[
-                logoWidget("assets/images/logo.png"),
+                logoWidget("assets/images/dumbbell.png"),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Text(

@@ -47,7 +47,7 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
             child: Column(
               children: <Widget>[
-                logoWidget("assets/images/logo.png"),
+                logoWidget("assets/images/dumbbell.png"),
 
                 const SizedBox(height: 20),
 
