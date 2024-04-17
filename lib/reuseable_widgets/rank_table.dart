@@ -17,7 +17,7 @@ class RankTable extends StatelessWidget {
     sortedItems.sort((a, b) => b.point.compareTo(a.point));
 
     return Container(
-      height: MediaQuery.of(context).size.height * 0.55,
+      height: MediaQuery.of(context).size.height * 0.50,
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
         color: Colors.white,

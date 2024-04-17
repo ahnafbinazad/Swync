@@ -41,7 +41,7 @@ class _LogInScreenState extends State<LogInScreen> {
           child: Padding(
             padding: EdgeInsets.fromLTRB(
               20,
-              MediaQuery.of(context).size.height * 0.1,
+              MediaQuery.of(context).size.height * 0.05,
               20,
               0,
             ),
@@ -98,6 +98,9 @@ class _LogInScreenState extends State<LogInScreen> {
                 }),
 
                 signUpOption(),
+
+                const SizedBox(height: 20),
+
               ],
             ),
           ),
