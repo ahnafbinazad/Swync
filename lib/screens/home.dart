@@ -90,9 +90,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             print("record workout button pressed");
                             // Navigate to the RecordWorkoutScreen
 
-
-
-
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                              builder: (context) => RecordWorkoutScreen(),
+                              ),
+                            );
+                            
                           },
                           child: Container(
                             width: MediaQuery.of(context).size.width * 0.5, 

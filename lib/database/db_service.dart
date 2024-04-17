@@ -47,13 +47,13 @@ class DbService extends ChangeNotifier {
       "email" : email,
       "username" : username,
       "totalWorkoutTime" : 500,
-      "totalWorkoutDays" : 60,
-      "bestStreak" : 234,
+      "totalWorkoutDays" : 12,
+      "bestStreak" : 12,
       "bestRank" : {},
-      "streak" : 23,
+      "streak" : 12,
       "streakedToday" : false,
       "lastStreakTime" : "2024-03-17T12:00:00",
-      "monthlyWorkoutTime" : 24543,
+      "monthlyWorkoutTime" : 38,
       "streakRank" : 3,
       "workoutRank" : 1,
     });
@@ -61,8 +61,8 @@ class DbService extends ChangeNotifier {
   await _db.collection("leaderBoard").doc(fUser.uid).set({
       "userId" : fUser.uid,
       "username" : username,
-      "streak" : 6,
-      "monthlyWorkoutTime" : 69,
+      "streak" : 12,
+      "monthlyWorkoutTime" : 38,
       "streakRank" : 0,
       "workoutRank" : 0,
     });
